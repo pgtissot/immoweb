@@ -1,0 +1,30 @@
+AdvertisementService
+	List<Advertisement> listAdvertisements(City city)
+
+ReferenceService
+	listCities()
+
+UserService
+	register()
+	User authenticate(String login, String password)
+
+----------------------------------------------------------
+
+Accueil : Recherche (coup de coeur, villes)
+	Résultats : tri, filtres, pagination
+		Détail : détail d'une annonce
+			Contact : contact advertiser
+
+Login
+
+Register
+	Peut-être personnalisé (Advertiser/User)
+
+Mon compte : favoris, infos persos
+	Peut-être personnalisé (Advertiser/User)
+
+Dépôt : ajout annonce
+
+Ajout Contact
+
+Page CGV

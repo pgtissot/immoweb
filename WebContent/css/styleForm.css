@@ -1,0 +1,84 @@
+/*font appellé par google font */
+body {
+    font-family: 'Libre Baskerville', serif;
+}
+
+/* coulor de l'input submit*/
+.btn-primary {
+    color: #fff;
+    background-color: #5F0626;
+    border-color: #5F0626;
+}
+
+/*coulor de l'input submit hover*/
+.btn-primary:hover {
+    color: #fff;
+    background-color: #A1233B;
+    border-color: #A1233B;
+}
+
+/*coulor de le lien*/
+a { font-weight: 600;
+    color: #3B0618;
+    text-decoration: none;
+    background-color: transparent;
+}
+/*coulor de le lien hover*/
+a:hover {
+	 color: #A1233B;
+}
+
+/*coulor du bordre de l'input*/
+.form-control {
+  border-color: #A1233B;
+  opacity: 0.4;
+   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/*coulor de l'input clicked*/
+.form-control:focus {
+  border-color: #A1233B;
+  opacity: 0.8;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/*coulor du placeholder*/
+.form-control::-webkit-input-placeholder {
+  color: #A1233B;
+}
+
+/*ça donne du style a l'entete du form*/
+.entete {
+	padding: 15px;
+	background-color: #5F0626;
+	color: #FFF;
+	opacity: 0.8;
+	border-radius: 5px 5px 0px 0px; 
+	
+}
+
+/*ça donne du margin a l'icon dans l'entete*/
+.fa-edit {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+form {
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.4);
+	border-radius: 5px 5px 5px 5px; 
+	
+}
+/*donne du padding au form*/
+.padding {padding: 20px;
+
+}
+
+form label {
+	font-size:small;
+}
+
+form span {
+	font-size:small;
+}
+
+
