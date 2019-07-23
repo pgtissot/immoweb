@@ -34,11 +34,11 @@
 			</div>
 			<div class="col-lg-6 my-auto" id="logged">
 				<div class="col-lg-4 text-center">
-					<a class="btn btn-primary hfbutton" role="button" id="logo" href="depot.html">
+					<a class="btn btn-primary hfbutton" role="button" id="logo" href="depot.jsp">
 						<i class="fas fa-envelope-open-text"></i> Dépôt d'Annonce</a>
 				</div>
 				<div class="col-lg-4 text-center">
-					<a class="btn btn-primary hfbutton" role="button" id="login" href="jsp">
+					<a class="btn btn-primary hfbutton" role="button" id="login" href="compte.jsp">
 						<i class="far fa-user"></i> Mon Compte</a>
 				</div>
 				<div class="col-lg-4 text-center">

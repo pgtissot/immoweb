@@ -1,3 +1,59 @@
+/* PAGE COMPTE */
+ $(document).ready(function(){
+		$("#modDataButton").click(function(){
+			$("#modData").fadeIn(500); 
+			$("#showData").hide(); 
+			$("#welcome").hide(); 
+			$("#personnel").fadeIn(500); 
+		});
+	});
+
+ $(document).ready(function(){
+		$(".fa-window-close").click(function(){
+			$("#modData").hide(); 
+			$("#showData").fadeIn(500); 
+			$("#welcome").fadeIn(500); 
+			$("#personnel").fadeIn(500); 
+		});
+	});	
+	
+
+
+/* FUNCTION MONTRE PASS*/
+$(document).ready(function(){
+$('form input[type="password"]').prev().click(
+	function() {
+		typ = $(this).next().attr('type');
+			if (typ == 'password') {
+				$(this).next().attr('type', 'text');
+				$(this).removeClass('fa-eye');
+				$(this).addClass('fa-eye-slash');
+			} else {
+				$(this).next().attr('type', 'password');
+				$(this).addClass('fa-eye');
+				$(this).removeClass('fa-eye-slash');
+			}
+	});
+ });
+	
+$(document).ready(function(){
+$('.mpass').click(
+	function() {
+		typ = $('form input[name="password"]').attr('type');
+			if (typ == 'password') {
+				$('form input[name="password"]').attr('type', 'text');
+				$('.mpass').removeClass('fa-eye');
+				$('.mpass').addClass('fa-eye-slash');
+			} else {
+				$('form input[name="password"]').attr('type', 'password');
+				$('.mpass').addClass('fa-eye');
+				$('.mpass').removeClass('fa-eye-slash');
+			}
+	});
+ });
+		
+
+
 /* REALESTATE FUNCTIONS */
 
 function addRealEstatesToSelect() {
