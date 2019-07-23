@@ -27,7 +27,7 @@
 					<div class="col-lg-6 text-center my-auto">
 						<button type="button" class="btn btn-primary hfbutton" data-toggle="modal"
 							data-target="#loginModal">
-							<i class="fas fa-sign-in-alt"></i> Connexion</a>
+							<i class="fas fa-sign-in-alt"></i> Connexion
 						</button>
 					</div>
 				</div>

@@ -53,7 +53,7 @@
 										<div>370 m²</div>
 										<div>Paris 2e (75002)</div>
 										<div data-type="detail-price">1736000 €</div>
-										<div>Postée le 29/02/2019</a></div>
+										<div>Postée le 29/02/2019</div>
 									</div>
 								</div>
 								<div class="row">
@@ -150,11 +150,11 @@
 								<div class="row">
 									<div class="col-lg-6 energy-d">
 										<i class="far fa-lightbulb"></i> Consommation énergétique :
-										D</i>
+										D
 									</div>
 									<div class="col-lg-6 gas-d">
 										<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-										D</i>
+										D
 									</div>
 								</div>
 							</div>
