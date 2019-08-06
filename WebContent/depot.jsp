@@ -10,6 +10,7 @@
 	<!-- RAPPELER LE JAVASCRIPT -->
 	<link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="fontawesome/css/all.min.css" />
+	<link rel="stylesheet" href="css/styles.css" />
 	<script src="js/codes.js"></script>
 	<title> Nouvelle annonce </title>
 </head>

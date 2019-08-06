@@ -1,7 +1,6 @@
 package com.edu.realestate.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -11,25 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.edu.realestate.exceptions.RealEstateException;
-import com.edu.realestate.model.City;
-import com.edu.realestate.services.ReferenceService;
-import com.edu.realestate.services.ReferenceServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.services.AdvertisementService;
+import com.edu.realestate.services.AdvertisementServiceImpl;
 
 /**
- * Servlet implementation class City
+ * Servlet implementation class SearchServlet
  */
-@WebServlet("/CityServlet")
-public class CityServlet extends HttpServlet {
+@WebServlet("/home")
+public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ReferenceService service;
+	private AdvertisementService service;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CityServlet() {
+	public IndexServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +36,7 @@ public class CityServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		service = new ReferenceServiceImpl();
+		service = new AdvertisementServiceImpl();
 	}
 
 	/**
@@ -50,18 +47,20 @@ public class CityServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<City> list = new ArrayList<>();
-		response.setCharacterEncoding("UTF-8");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
-			list = service.findCitiesByName(request.getParameter("input"));
-			response.getWriter().append(new ObjectMapper().writeValueAsString(list));
-		} catch (RealEstateException e) {
+			List<Advertisement> lads = service.findLatestAds(8);
+			request.setAttribute("listAds", lads);
+		} catch (Exception e) {
 			response.sendError(500, "Problème inattendu côté serveur");
 		}
+
+		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**

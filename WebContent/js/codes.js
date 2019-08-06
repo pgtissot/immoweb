@@ -1,226 +1,273 @@
+/* AD CLICK */
+
+$(document).ready(function() {
+	$('a[role="button"]').each(function() {
+		var id = $(this).attr("id");
+		var formName = "form#"+id;
+		$(this).click(function () {
+			$(formName).submit();
+		})
+	});
+});
+
+
+/* INDEX LINKS */
+
+$(document).ready(function() {
+	$('a[id^="quick-link"]').each(function() {
+		var re = $(this).attr("id");
+		var formName = "form#"+re;
+		$(this).click(function () {
+			$(formName).submit();
+		})
+	});
+});
+
+
 /* PAGE COMPTE */
- $(document).ready(function(){
-		$("#modDataButton").click(function(){
-			$("#modData").fadeIn(500); 
-			$("#showData").hide(); 
-			$("#welcome").hide(); 
-			$("#personnel").fadeIn(500); 
-		});
+
+$(document).ready(function() {
+	$("#modDataButton").click(function() {
+		$("#modData").fadeIn(500);
+		$("#showData").hide();
+		$("#welcome").hide();
+		$("#personnel").fadeIn(500);
 	});
+});
 
- $(document).ready(function(){
-		$(".fa-window-close").click(function(){
-			$("#modData").hide(); 
-			$("#showData").fadeIn(500); 
-			$("#welcome").fadeIn(500); 
-			$("#personnel").fadeIn(500); 
-		});
-	});	
-	
+$(document).ready(function() {
+	$(".fa-window-close").click(function() {
+		$("#modData").hide();
+		$("#showData").fadeIn(500);
+		$("#welcome").fadeIn(500);
+		$("#personnel").fadeIn(500);
+	});
+});
 
 
-/* FUNCTION MONTRE PASS*/
-$(document).ready(function(){
-$('form input[type="password"]').prev().click(
-	function() {
+/* FUNCTION MONTRE PASS */
+
+$(document).ready(function() {
+	$('form input[type="password"]').prev().click(function() {
 		typ = $(this).next().attr('type');
-			if (typ == 'password') {
-				$(this).next().attr('type', 'text');
-				$(this).removeClass('fa-eye');
-				$(this).addClass('fa-eye-slash');
-			} else {
-				$(this).next().attr('type', 'password');
-				$(this).addClass('fa-eye');
-				$(this).removeClass('fa-eye-slash');
-			}
+		if (typ == 'password') {
+			$(this).next().attr('type', 'text');
+			$(this).removeClass('fa-eye');
+			$(this).addClass('fa-eye-slash');
+		} else {
+			$(this).next().attr('type', 'password');
+			$(this).addClass('fa-eye');
+			$(this).removeClass('fa-eye-slash');
+		}
 	});
- });
-	
-$(document).ready(function(){
-$('.mpass').click(
-	function() {
+});
+
+$(document).ready(function() {
+	$('.mpass').click(function() {
 		typ = $('form input[name="password"]').attr('type');
-			if (typ == 'password') {
-				$('form input[name="password"]').attr('type', 'text');
-				$('.mpass').removeClass('fa-eye');
-				$('.mpass').addClass('fa-eye-slash');
-			} else {
-				$('form input[name="password"]').attr('type', 'password');
-				$('.mpass').addClass('fa-eye');
-				$('.mpass').removeClass('fa-eye-slash');
-			}
+		if (typ == 'password') {
+			$('form input[name="password"]').attr('type', 'text');
+			$('.mpass').removeClass('fa-eye');
+			$('.mpass').addClass('fa-eye-slash');
+		} else {
+			$('form input[name="password"]').attr('type', 'password');
+			$('.mpass').addClass('fa-eye');
+			$('.mpass').removeClass('fa-eye-slash');
+		}
 	});
- });
-		
+});
 
 
 /* REALESTATE FUNCTIONS */
 
 function addRealEstatesToSelect() {
-    $.get("http://localhost/realestate/server/realestates.json", function (response) {
-        response.forEach(function (e) {
-            $('#realestate').append(new Option(e.option, e.value));
-        });
-        $('#realestate').change(function () { realEstateToggleOptions(); });
-    });
+	$.get("http://localhost:8080/ImmoWeb/server/realestates.json", function(
+			response) {
+		response.forEach(function(e) {
+			$('#realestate').append(new Option(e.option, e.value));
+		});
+		$('#realestate').change(function() {
+			realEstateToggleOptions();
+		});
+	});
 }
 
 function realEstateToggleOptions() {
-    var value = $('#realestate').val();
-    var opts = (value == "Maison" || value == "Appartement" ? "block" : "none");
-    var optA = (value == "Appartement" ? "block" : "none");
-    var optM = (value == "Maison" ? "block" : "none");
-    var optL = (value == "Maison" ? "" : "none");
-    var optR = (value == "Maison" || value == "Appartement" ? "" : "none");
+	var value = $('#realestate').val();
+	var opts = (value == "Maison" || value == "Appartement" ? "block" : "none");
+	var optA = (value == "Appartement" ? "block" : "none");
+	var optM = (value == "Maison" ? "block" : "none");
+	var optL = (value == "Maison" ? "" : "none");
+	var optR = (value == "Maison" || value == "Appartement" ? "" : "none");
 
-    $('div[data-option="options"]').css("display", opts);
-    $('div[data-option="optionsApartment"]').css("display", optA);
-    $('div[data-option="optionsHouse"]').css("display", optM);
-    $('div[data-search="land"]').css("display", optL);
-    $('div[data-search="rooms"]').css("display", optR);
+	$('div[data-option="options"]').css("display", opts);
+	$('div[data-option="optionsApartment"]').css("display", optA);
+	$('div[data-option="optionsHouse"]').css("display", optM);
+	$('div[data-search="land"]').css("display", optL);
+	$('div[data-search="rooms"]').css("display", optR);
 }
+
+$(document).ready(addRealEstatesToSelect);
+
+
+/* ENERGY OPTIONS */
+
+var levels = [ "a", "b", "c", "d", "e", "f", "g" ];
+
+function energyOptionToggle() {
+	levels.forEach(function(e) {
+		$('#energy-level').removeClass("energy-" + e);
+		$('#energy-level:focus').removeClass("energy-" + e);
+	});
+	var value = $('#energy-level').val().toLowerCase();
+	if (typeof value != "undefined") {
+		$('#energy-level').addClass("energy-" + value);
+		$('#energy-level:focus').addClass("energy-" + value);
+	}
+}
+
+function gasOptionToggle() {
+	levels.forEach(function(e) {
+		$('#gas-level').removeClass("gas-" + e);
+		$('#gas-level:focus').removeClass("gas-" + e);
+	});
+	var value = $('#gas-level').val().toLowerCase();
+	if (typeof value != "undefined") {
+			$('#gas-level').addClass("gas-" + value);
+			$('#gas-level:focus').addClass("gas-" + value);
+	}
+}
+
+$(document).ready(function() {
+	function changeEnergy() {
+		energyOptionToggle()
+	};
+	function changeGas() {
+		gasOptionToggle()
+	};
+	$('#energy-level').change(changeEnergy);
+	$('#gas-level').change(changeGas);
+});
+
+
 
 
 /* CITY FUNCTIONS */
 
-/* function cityAutoCompletion(cityInput) {
-    var val = cityInput.val();
-
-    var url = "http://localhost/realestate/server/loadcities.php?q=" + val;
-
-    $.get(url, function (response) {
-        var cities = new Array();
-        for (var element in response) {
-            cities.push(response[element].name);
-        }
-
-        $('#city').autocomplete({ source: cities, minLength: 3, delay: 200 });
-    });
-}
+/*
+ * function cityAutoCompletion(cityInput) { var val = cityInput.val();
+ * 
+ * var url = "http://localhost/realestate/server/loadcities.php?q=" + val;
+ * 
+ * $.get(url, function (response) { var cities = new Array(); for (var element
+ * in response) { cities.push(response[element].name); }
+ * 
+ * $('#city').autocomplete({ source: cities, minLength: 3, delay: 200 }); }); }
  */
 
 function cityAutoCompletion(cityInput) {
-    cityInput.typeahead(
-        {
-            hint: true,
-            highlight: true,
-            minLength: 3,
-            source: function (query, process) {
-                var url = "http://localhost/realestate/server/loadcities.php?q=" + query;
-                $.get(url, function (response) {
-                    var cities = new Array();
-                    for (var element in response) {
-                        cities.push(response[element].name);
-                    }
-                    return process(cities);
-                })
+	cityInput.typeahead({
+		hint : true,
+		highlight : true,
+		minLength : 3,
+		source : function(query, process) {
+			var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
+					+ query;
 
-            },
-        }
-    );
+			$.get(url, function(response) {
+				var completions = JSON.parse(response);
+				var cities = new Array();
+				completions.forEach(function(e) {
+					cities.push(e);
+				});
+				return process(cities);
+			})
+
+		},
+	});
 }
 
 function setHiddenIdCity(cityInput) {
-    currentInput = cityInput.typeahead("getActive");
-    var url = "http://localhost/realestate/server/loadcities.php?q=" + currentInput;
-    $.get(url, function (response) {
-        $('#cityid').val(response[0].id);
-    });
+	currentInput = cityInput.typeahead("getActive");
+	var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
+			+ encodeURI(currentInput.name);
+	$.get(url, function(response) {
+		var completions = JSON.parse(response);
+		$('#cityid').val(completions[0].id);
+	});
 
 }
 
+$(document).ready(function() {
+	function cityInput() {
+		cityAutoCompletion($('#city'))
+	}
+	;
+	$('#city').keyup(cityInput);
+});
+
+$(document).ready(function() {
+	function changeInput() {
+		setHiddenIdCity($('#city'))
+	}
+	;
+	$('#city').change(changeInput);
+});
 
 
 /* USER_TYPE FUNCTIONS */
 
 function addUserTypesToSelect() {
-    $.get("http://localhost/realestate/server/usertypes.json", function (usertypes) {
-        usertypes.forEach(function (e) {
-            $('#user_type').append(new Option(e.option, e.value));
-        });
-        $('#user_type').change(function () { userTypeToggleModeratorName(); });
-    });
+	$.get("http://localhost:8080/ImmoWeb/server/usertypes.json", function(
+			usertypes) {
+		usertypes.forEach(function(e) {
+			$('#user_type').append(new Option(e.option, e.value));
+		});
+		$('#user_type').change(function() {
+			userTypeToggleModeratorName();
+		});
+	});
 }
 
 function userTypeToggleModeratorName() {
-    var moderatorName = ($('#user_type').val() == "M" ? "block" : "none");
-    $('span#hidemoderator').css("display", moderatorName);
+	var moderatorName = ($('#user_type').val() == "M" ? "block" : "none");
+	$('span#hidemoderator').css("display", moderatorName);
 }
 
+$(document).ready(addUserTypesToSelect);
 
 /* LOADING THE PAGE */
 
-
-/* CITY AUTOCOMPLETION */
-
-$(document).ready(function () {
-    function cityInput() { cityAutoCompletion($('#city')) };
-    $('#city').keyup(cityInput);
-});
-
-$(document).ready(function () {
-    function changeInput() { setHiddenIdCity($('#city')) };
-    $('#city').change(changeInput);
-});
-
-
 /* LOGIN */
 
-/* $(document).ready(
-    function () {
-        $('form#login').submit(
-            function (event) {
-                $(this).validate();
-                if ($(this).valid()) {
-                    var jsonData = JSON.stringify({
-                        "login": $('input[name="username"]').val(),
-                        "password": $('input[name="password"]').val()
-                    });
-
-                    $.post(
-                        "http://localhost/realestate/server/login.php",
-                        jsonData,
-                        function (result) { console.log(result); },
-                        "json"
-                    );
-                    //event.preventDefault();
-                    $('#notlogged').toggle();
-                    $('#logged').toggle();
-                }
-            }
-        );
-    }
-);
+/*
+ * $(document).ready( function () { $('form#login').submit( function (event) {
+ * $(this).validate(); if ($(this).valid()) { var jsonData = JSON.stringify({
+ * "login": $('input[name="username"]').val(), "password":
+ * $('input[name="password"]').val() });
+ * 
+ * $.post( "http://localhost/realestate/server/login.php", jsonData, function
+ * (result) { console.log(result); }, "json" ); //event.preventDefault();
+ * $('#notlogged').toggle(); $('#logged').toggle(); } } ); } );
  */
 
-$(document).ready(
-    function () {
-        $('form#login').submit(
-            function () {
-                $('#notlogged').toggle();
-                $('#logged').toggle();
-            }
-        );
-    }
-);
+$(document).ready(function() {
+	$('form#login').submit(function() {
+		$('#notlogged').toggle();
+		$('#logged').toggle();
+	});
+});
 
 /* CONTACT ADVERTISER */
 
-$(document).ready(
-    function () {
-        $('form#contactAdvertiser').submit(
-            function (event) {
-                $(this).validate();
-                if ($(this).valid()) {
-                    console.log("Everything is super !");
-                } else {
-                    event.preventDefault();
-                }
-            }
-        );
-    }
-);
+$(document).ready(function() {
+	$('form#contactAdvertiser').submit(function(event) {
+		$(this).validate();
+		if ($(this).valid()) {
+			console.log("Everything is super !");
+		} else {
+			event.preventDefault();
+		}
+	});
+});
 
-
-$(document).ready(addRealEstatesToSelect);
-$(document).ready(addUserTypesToSelect);

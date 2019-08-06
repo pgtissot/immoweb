@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.model.RealEstateType;
 import com.edu.realestate.model.SearchCriteria;
+import com.edu.realestate.model.TransactionType;
 import com.edu.realestate.services.ReferenceService;
 import com.edu.realestate.services.ReferenceServiceImpl;
 
@@ -56,24 +58,52 @@ public class SearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		SearchCriteria sc = null;
-
+		RealEstateType re = null;
+		
 		try {
-			String id = request.getParameter("id");
 			sc = new SearchCriteria();
-			sc.setCityId(Integer.parseInt(id));
+			re = RealEstateType.valueOf(request.getParameter("realestate"));
+			sc.setTransactionType(TransactionType.valueOf(request.getParameter("transactionType")));
+			sc.setRealEstateType(re);
+
+			if (request.getParameter("cityId") != null)
+				sc.setCityId(Integer.parseInt(request.getParameter("cityId")));
+
+			if (!request.getParameter("area-min").equals(""))
+				sc.setAreaMin(Integer.parseInt(request.getParameter("area-min")));
+
+			if (!request.getParameter("area-max").equals(""))
+				sc.setAreaMax(Integer.parseInt(request.getParameter("area-max")));
+
+			if (!request.getParameter("price-min").equals(""))
+				sc.setPriceMin(Integer.parseInt(request.getParameter("price-min")));
+
+			if (!request.getParameter("price-max").equals(""))
+				sc.setPriceMax(Integer.parseInt(request.getParameter("price-max")));
+
+			if (!request.getParameter("distance").equals(""))
+				sc.setDistance(Integer.parseInt(request.getParameter("distance")));
+			
+			sc.setLimit(10);
+
 		} catch (Exception e) {
 			response.sendError(422, "Problème de paramètre");
 		}
 
 		try {
 			List<Advertisement> lads = service.findAdsByCriteria(sc);
-			String print = "";
-			for (Advertisement ad : lads)
-				print += ad.toString() + "\n\n";
-			response.getWriter().append(print);
-		} catch (RealEstateException re) {
+			request.setAttribute("listAds", lads);
+			request.setAttribute("realEstate", re);
+			request.setAttribute("countAds", lads.size());
+
+			//TODO : maybe, add the YelpSearch call
+
+		} catch (RealEstateException ree) {
 			response.sendError(500, "Problème inattendu côté serveur");
 		}
+
+		getServletContext().getRequestDispatcher("/resultat.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -82,7 +112,7 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 

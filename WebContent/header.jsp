@@ -2,21 +2,31 @@
 	pageEncoding="UTF-8"%>
 <%@ page errorPage="erreur.jsp"%>
 
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+<%@ page import="com.edu.realestate.services.AdvertisementServiceImpl"%>
+<%@ page import="com.edu.realestate.model.Advertisement"%>
+<%@ page import="java.util.Map"%>
+
+<jsp:useBean id="adService" class="com.edu.realestate.services.AdvertisementServiceImpl" />
+
+<% Map<String,Integer> dbData = adService.getAdsData(); %>
+
 <header>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-3 my-auto text-center">
-				<a class="btn btn-primary hfbutton" role="button" href="index.jsp">LOGO</a>
+				<a class="btn btn-primary hfbutton" role="button" href="home">LOGO</a>
 			</div>
 			<div class="col-lg-3 my-auto text-center">
 				<div class="row">
-					<div class="col-lg-12 text-center">2035 annonces de vente</div>
+					<div class="col-lg-12 text-center"><%= dbData.get("Sale") %> annonces de vente</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 text-center">4434 annonces de location</div>
+					<div class="col-lg-12 text-center"><%= dbData.get("Rent") %> annonces de location</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 text-center">6477 biens</div>
+					<div class="col-lg-12 text-center"><%= dbData.get("RealEstate") %> biens</div>
 				</div>
 			</div>
 			<div class="col-lg-6 my-auto" id="notlogged">

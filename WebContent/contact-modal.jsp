@@ -13,7 +13,7 @@
 					<div class="row">
 						<div class="col-lg-12 text-center sectiontitle">
 							<i class="far fa-envelope"></i>
-							Contacter le vendeur
+							Contacter le vendeur : <c:out value="${ad.advertiser.username}" />
 						</div>
 					</div>
 					<form action="" method="POST" class="was-validated" id="contactAdvertiser">

@@ -1,0 +1,14 @@
+[
+    {
+        "option": "Client",
+        "value": "U"
+    },
+    {
+        "option": "Vendeur/Loueur",
+        "value": "A"
+    },
+    {
+        "option": "Modérateur",
+        "value": "M"
+    }
+]

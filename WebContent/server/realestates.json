@@ -1,0 +1,26 @@
+[
+    {
+        "option": "Maison",
+        "value": "House"
+    },
+    {
+        "option": "Appartement",
+        "value": "Apartment"
+    },
+    {
+        "option": "Parking",
+        "value": "Parking"
+    },
+    {
+        "option": "Terrain",
+        "value": "Land"
+    },
+    {
+        "option": "Local Commercial",
+        "value": "Commercial"
+    },
+    {
+        "option": "Autre",
+        "value": "Other"
+    }
+]

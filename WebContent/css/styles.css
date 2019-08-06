@@ -1,22 +1,3 @@
-/* @font-face {
-	font-family: galyonreg;
-	src: url(../fonts/Galyon-Regular.otf);
-}
-
-@font-face {
-	font-family: galyonbold;
-	src: url(../fonts/Galyon-Bold.otf);
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: galyonbold;
-	font-variant: small-caps;
-	text-transform: capitalize;
-	text-shadow: 2px 2px 2px grey;
-	background-color : white;
-}
- */
-
 /* GENERAL */
 
 /**[class^="col-"] {
@@ -28,10 +9,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 :root {
-	--primary-color : rgba(70, 70, 225);
-	--secondary-color : rgba(250, 250, 208);
-	--primary-color-alpha : rgba(70, 70, 225, 0.5);
-	--secondary-color-alpha : rgba(250, 250, 208, 0.9);
+	--primary-color : rgba(30, 30, 125);
+	--secondary-color : rgba(255, 255, 228);
+	--primary-color-alpha : rgba(30, 30, 125, 0.5);
+	--secondary-color-alpha : rgba(255, 255, 228, 0.9);
 	--box-shadow-color : rgba(20, 20, 20, 0.5);
 
 }
@@ -76,11 +57,11 @@ section.shadow, article {
 	box-shadow: 5px 5px 20px var(--box-shadow-color);
 }
 
-/*article:hover {
+article:hover {
 	margin : 10px 0px 10px;
 	box-shadow: 0px 10px 20px var(--primary-color-alpha);
 	transition: 0.5s;
-}*/
+}
 
 .sectiontitle {
 	margin-bottom: 20px;
@@ -93,7 +74,7 @@ section.shadow, article {
 	font-size: 1.2em;
 }
 
-.sectiontitle, .mediumfont, div[data-type]:not([data-type^="detail"]):not([data-type^="sm"]) {
+.sectiontitle, .mediumfont {
 	font-size: 1.1em;
 }
 
@@ -212,6 +193,11 @@ div[data-type="caption"] {
 	margin-top: 10px;
 }
 
+div[data-type="realestate"] {
+	/*color: blue;*/
+	padding-left: 30px;
+}
+
 div[data-option="optionsApartment"] {
 	display: none;
 }
@@ -229,7 +215,6 @@ div#submit {
 }
 
 
-
 /* DETAIL PAGE */
 
 .annoncedetail {
@@ -242,12 +227,32 @@ div[data-option] div[class^="col"] {
 	text-align: center;
 }
  
+div[data-type="detail-realestate"] {
+	padding-bottom : 20px;
+}
+
+div[data-type="detail-price"] {
+	padding : 20px;
+}
+
+div#favoris {
+	padding-top : 20px;
+}
+
 .ok {
 	background-color: rgb(120,255,120);
 }
 
 .nok {
 	background-color: rgb(255,120,120);
+}
+
+.energy-na {
+	background-color: none;
+	border : solid;
+	border-width : 2px;
+	border-radius: 10px;
+	
 }
 
 .energy-a {
@@ -279,6 +284,10 @@ div[data-option] div[class^="col"] {
 .energy-g {
 	color: white;
 	background-color: rgb(255, 0, 0);
+}
+
+.gas-na {
+	background-color: none;
 }
 
 .gas-a {

@@ -1,0 +1,406 @@
+[
+	{
+		"option": "Ain (01)",
+		"value": "01"
+	},
+	{
+		"option": "Aisne (02)",
+		"value": "02"
+	},
+	{
+		"option": "Allier (03)",
+		"value": "03"
+	},
+	{
+		"option": "Alpes-de-Haute-Provence (04)",
+		"value": "04"
+	},
+	{
+		"option": "Hautes-Alpes (05)",
+		"value": "05"
+	},
+	{
+		"option": "Alpes-Maritimes (06)",
+		"value": "06"
+	},
+	{
+		"option": "Ardèche (07)",
+		"value": "07"
+	},
+	{
+		"option": "Ardennes (08)",
+		"value": "08"
+	},
+	{
+		"option": "Ariège (09)",
+		"value": "09"
+	},
+	{
+		"option": "Aube (10)",
+		"value": "10"
+	},
+	{
+		"option": "Aude (11)",
+		"value": "11"
+	},
+	{
+		"option": "Aveyron (12)",
+		"value": "12"
+	},
+	{
+		"option": "Bouches-du-Rhône (13)",
+		"value": "13"
+	},
+	{
+		"option": "Calvados (14)",
+		"value": "14"
+	},
+	{
+		"option": "Cantal (15)",
+		"value": "15"
+	},
+	{
+		"option": "Charente (16)",
+		"value": "16"
+	},
+	{
+		"option": "Charente-Maritime (17)",
+		"value": "17"
+	},
+	{
+		"option": "Cher (18)",
+		"value": "18"
+	},
+	{
+		"option": "Corrèze (19)",
+		"value": "19"
+	},
+	{
+		"option": "Corse-du-Sud (2a)",
+		"value": "2a"
+	},
+	{
+		"option": "Haute-Corse (2b)",
+		"value": "2b"
+	},
+	{
+		"option": "Côte-d'Or (21)",
+		"value": "21"
+	},
+	{
+		"option": "Côtes-d'Armor (22)",
+		"value": "22"
+	},
+	{
+		"option": "Creuse (23)",
+		"value": "23"
+	},
+	{
+		"option": "Dordogne (24)",
+		"value": "24"
+	},
+	{
+		"option": "Doubs (25)",
+		"value": "25"
+	},
+	{
+		"option": "Drôme (26)",
+		"value": "26"
+	},
+	{
+		"option": "Eure (27)",
+		"value": "27"
+	},
+	{
+		"option": "Eure-et-Loir (28)",
+		"value": "28"
+	},
+	{
+		"option": "Finistère (29)",
+		"value": "29"
+	},
+	{
+		"option": "Gard (30)",
+		"value": "30"
+	},
+	{
+		"option": "Haute-Garonne (31)",
+		"value": "31"
+	},
+	{
+		"option": "Gers (32)",
+		"value": "32"
+	},
+	{
+		"option": "Gironde (33)",
+		"value": "33"
+	},
+	{
+		"option": "Hérault (34)",
+		"value": "34"
+	},
+	{
+		"option": "Ille-et-vilaine (35)",
+		"value": "35"
+	},
+	{
+		"option": "Indre (36)",
+		"value": "36"
+	},
+	{
+		"option": "Indre-et-Loire (37)",
+		"value": "37"
+	},
+	{
+		"option": "Isère (38)",
+		"value": "38"
+	},
+	{
+		"option": "Jura (39)",
+		"value": "39"
+	},
+	{
+		"option": "Landes (40)",
+		"value": "40"
+	},
+	{
+		"option": "Loir-et-Cher (41)",
+		"value": "41"
+	},
+	{
+		"option": "Loire (42)",
+		"value": "42"
+	},
+	{
+		"option": "Haute-Loire (43)",
+		"value": "43"
+	},
+	{
+		"option": "Loire-Atlantique (44)",
+		"value": "44"
+	},
+	{
+		"option": "Loiret (45)",
+		"value": "45"
+	},
+	{
+		"option": "Lot (46)",
+		"value": "46"
+	},
+	{
+		"option": "Lot-et-Garonne (47)",
+		"value": "47"
+	},
+	{
+		"option": "Lozère (48)",
+		"value": "48"
+	},
+	{
+		"option": "Maine-et-Loire (49)",
+		"value": "49"
+	},
+	{
+		"option": "Manche (50)",
+		"value": "50"
+	},
+	{
+		"option": "Marne (51)",
+		"value": "51"
+	},
+	{
+		"option": "Haute-Marne (52)",
+		"value": "52"
+	},
+	{
+		"option": "Mayenne (53)",
+		"value": "53"
+	},
+	{
+		"option": "Meurthe-et-Moselle (54)",
+		"value": "54"
+	},
+	{
+		"option": "Meuse (55)",
+		"value": "55"
+	},
+	{
+		"option": "Morbihan (56)",
+		"value": "56"
+	},
+	{
+		"option": "Moselle (57)",
+		"value": "57"
+	},
+	{
+		"option": "Nièvre (58)",
+		"value": "58"
+	},
+	{
+		"option": "Nord (59)",
+		"value": "59"
+	},
+	{
+		"option": "Oise (60)",
+		"value": "60"
+	},
+	{
+		"option": "Orne (61)",
+		"value": "61"
+	},
+	{
+		"option": "Pas-de-Calais (62)",
+		"value": "62"
+	},
+	{
+		"option": "Puy-de-Dôme (63)",
+		"value": "63"
+	},
+	{
+		"option": "Pyrénées-Atlantiques (64)",
+		"value": "64"
+	},
+	{
+		"option": "Hautes-Pyrénées (65)",
+		"value": "65"
+	},
+	{
+		"option": "Pyrénées-Orientales (66)",
+		"value": "66"
+	},
+	{
+		"option": "Bas-Rhin (67)",
+		"value": "67"
+	},
+	{
+		"option": "Haut-Rhin (68)",
+		"value": "68"
+	},
+	{
+		"option": "Rhône (69)",
+		"value": "69"
+	},
+	{
+		"option": "Haute-Saône (70)",
+		"value": "70"
+	},
+	{
+		"option": "Saône-et-Loire (71)",
+		"value": "71"
+	},
+	{
+		"option": "Sarthe (72)",
+		"value": "72"
+	},
+	{
+		"option": "Savoie (73)",
+		"value": "73"
+	},
+	{
+		"option": "Haute-Savoie (74)",
+		"value": "74"
+	},
+	{
+		"option": "Paris (75)",
+		"value": "75"
+	},
+	{
+		"option": "Seine-Maritime (76)",
+		"value": "76"
+	},
+	{
+		"option": "Seine-et-Marne (77)",
+		"value": "77"
+	},
+	{
+		"option": "Yvelines (78)",
+		"value": "78"
+	},
+	{
+		"option": "Deux-Sèvres (79)",
+		"value": "79"
+	},
+	{
+		"option": "Somme (80)",
+		"value": "80"
+	},
+	{
+		"option": "Tarn (81)",
+		"value": "81"
+	},
+	{
+		"option": "Tarn-et-Garonne (82)",
+		"value": "82"
+	},
+	{
+		"option": "Var (83)",
+		"value": "83"
+	},
+	{
+		"option": "Vaucluse (84)",
+		"value": "84"
+	},
+	{
+		"option": "Vendée (85)",
+		"value": "85"
+	},
+	{
+		"option": "Vienne (86)",
+		"value": "86"
+	},
+	{
+		"option": "Haute-vienne (87)",
+		"value": "87"
+	},
+	{
+		"option": "Vosges (88)",
+		"value": "88"
+	},
+	{
+		"option": "Yonne (89)",
+		"value": "89"
+	},
+	{
+		"option": "Territoire de belfort (90)",
+		"value": "90"
+	},
+	{
+		"option": "Essonne (91)",
+		"value": "91"
+	},
+	{
+		"option": "Hauts-de-Seine (92)",
+		"value": "92"
+	},
+	{
+		"option": "Seine-Saint-Denis (93)",
+		"value": "93"
+	},
+	{
+		"option": "Val-de-Marne (94)",
+		"value": "94"
+	},
+	{
+		"option": "Val-d'Oise (95)",
+		"value": "95"
+	},
+	{
+		"option": "Guadeloupe (971)",
+		"value": "971"
+	},
+	{
+		"option": "Martinique (972)",
+		"value": "972"
+	},
+	{
+		"option": "Guyane (973)",
+		"value": "973"
+	},
+	{
+		"option": "La Réunion (974)",
+		"value": "974"
+	},
+	{
+		"option": "Mayotte (976)",
+		"value": "976"
+	}
+]

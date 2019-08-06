@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ page errorPage="erreur.jsp"%>
 
+<%@ page import="com.edu.realestate.services.AdvertisementService"%>
+<%@ page import="com.edu.realestate.model.Advertisement"%>
+<%@ page import="com.edu.realestate.model.Apartment"%>
+<%@ page import="com.edu.realestate.model.House"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -30,6 +35,17 @@
 	<!-- CONTENT -->
 
 	<!-- DETAILS DE L'ANNONCE -->
+	<c:set var="ad" value="${requestScope.ad}" />
+
+	<section class="shadow">
+		<div class="container-fluid" id="searchheader">
+			<div class="row">
+				<div class="col-lg-10 my-auto bigfont">
+				Détails de l'annonce : Référence <c:out value="${ad.adNumber}" />
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<section>
 		<div class="container-fluid">
@@ -49,16 +65,18 @@
 							<div class="col-lg-5 text-center my-auto">
 								<div class="row">
 									<div class="col-lg-12 text-center">
-										<div data-type="detail-realestate">Maison 10 pièces</div>
-										<div>370 m²</div>
-										<div>Paris 2e (75002)</div>
-										<div data-type="detail-price">1736000 €</div>
-										<div>Postée le 29/02/2019</div>
+										<div data-type="detail-realestate">
+											<c:out value="${ad.transactionTypeToFrench()}" /> / <c:out value="${ad.realEstate.toFrench()}" />
+										</div>
+										<div><c:out value="${ad.realEstate.area}" /> m²</div>
+										<div><c:out value="${ad.realEstate.city.fullName}" /></div>
+										<div data-type="detail-price"><c:out value="${ad.realEstate.price}" /> &euro;</div>
+										<div>Postée le <c:out value="${ad.getFrenchReleaseDate()}" /></div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-12 text-center">
-										<div><a href="#"><i class="far fa-heart"></i> Favoris</a></div>
+										<div id="favoris"><a href="#"><i class="far fa-heart"></i> Favoris</a></div>
 									</div>
 								</div>
 							</div>
@@ -70,15 +88,15 @@
 								Description
 							</div>
 							<div class="col-lg-12 text-justify">
-								<div>Super description sans accent.</div>
-								<div>Contacter Mr GERARD agent commercial.</div>
+								<div><c:out value="${ad.title}" /></div>
+								<div><c:out value="${ad.description}" /></div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-12 text-center contactAdvertiserButton">
 								<button type="button" class="btn btn-info" data-toggle="modal"
 									data-target="#contactAdvertiserModal">
-									<i class="far fa-envelope"></i> Contacter le vendeur
+									<i class="far fa-envelope"></i> Contacter le vendeur : <c:out value="${ad.advertiser.username}" />
 								</button>
 							</div>
 						</div>
@@ -92,49 +110,155 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-12 text-center" data-option="optionsApartment">
-								<div class="row">
-									<div class="col-lg-3 ok">
-										<i class="far fa-bell"></i> Alarme <i class="fas fa-check"></i>
+
+							<c:choose>
+								<c:when test="${ad.realEstate.getType().equals('Apartment')}">
+									<div class="col-lg-12 text-center" data-option="detailOptionsApartment">
+										<div class="row">
+											<c:choose>
+												<c:when test="${ad.realEstate.alarm eq true}">
+													<div class="col-lg-3 ok">
+														<i class="far fa-bell"></i> Alarme <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.alarm eq false}">
+													<div class="col-lg-3 nok">
+														<i class="far fa-bell"></i> Alarme <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.elevator eq true}">
+													<div class="col-lg-3 ok">
+														<i class="far fa-building"></i> Ascenseur <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.elevator eq false}">
+													<div class="col-lg-3 nok">
+														<i class="far fa-building"></i> Ascenseur <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.balcony eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fas fa-seedling"></i> Balcon <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.balcony eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fas fa-seedling"></i> Balcon <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.digicode eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fas fa-lock"></i> Digicode <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.digicode eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fas fa-lock"></i> Digicode <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
+										<div class="row">
+											<c:choose>
+												<c:when test="${ad.realEstate.garage eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fas fa-car"></i> Garage <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.garage eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fas fa-car"></i> Garage <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.intercom eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fab fa-intercom"></i> Intercom <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.intercom eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fab fa-intercom"></i> Intercom <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.parking eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fas fa-parking"></i> Parking  <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.parking eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fas fa-parking"></i> Parking  <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.terrace eq true}">
+													<div class="col-lg-3 ok">
+														<i class="fas fa-fan"></i> Terrasse <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.terrace eq false}">
+													<div class="col-lg-3 nok">
+														<i class="fas fa-fan"></i> Terrasse <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
-									<div class="col-lg-3 nok">
-										<i class="far fa-building"></i> Ascenseur <i class="fas fa-times"></i>
+								</c:when>
+								<c:when test="${ad.realEstate.getType().equals('House')}">
+									<div class="col-lg-12" data-option="detailOptionsHouse">
+										<div class="row">
+											<c:choose>
+												<c:when test="${ad.realEstate.alarm eq true}">
+													<div class="col-lg-4 ok">
+														<i class="far fa-bell"></i> Alarme <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.alarm eq false}">
+													<div class="col-lg-4 nok">
+														<i class="far fa-bell"></i> Alarme <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.cellar eq true}">
+													<div class="col-lg-4 ok">
+														<i class="fas fa-wine-bottle"></i> Cave <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.cellar eq false}">
+													<div class="col-lg-4 nok">
+														<i class="fas fa-wine-bottle"></i> Cave <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+											<c:choose>
+												<c:when test="${ad.realEstate.swimmingPool eq true}">
+													<div class="col-lg-4 ok">
+														<i class="fas fa-swimming-pool"></i> Piscine <i class="fas fa-check"></i>
+													</div>
+												</c:when>
+												<c:when test="${ad.realEstate.swimmingPool eq false}">
+													<div class="col-lg-4 nok">
+														<i class="fas fa-swimming-pool"></i> Piscine <i class="fas fa-times"></i>
+													</div>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
-									<div class="col-lg-3 ok">
-										<i class="fas fa-seedling"></i> Balcon <i class="fas fa-check"></i>
-									</div>
-									<div class="col-lg-3 ok">
-										<i class="fas fa-lock"></i> Digicode <i class="fas fa-check"></i>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-3 ok">
-										<i class="fas fa-car"></i> Garage <i class="fas fa-check"></i>
-									</div>
-									<div class="col-lg-3 ok">
-										<i class="fab fa-intercom"></i> Intercom <i class="fas fa-check"></i>
-									</div>
-									<div class="col-lg-3 nok">
-										<i class="fas fa-parking"></i> Parking <i class="fas fa-times"></i>
-									</div>
-									<div class="col-lg-3 ok">
-										<i class="fas fa-fan"></i> Terrasse <i class="fas fa-check"></i>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12" data-option="optionsHouse">
-								<div class="row">
-									<div class="col-lg-4 ok">
-										<i class="far fa-bell"></i> Alarme <i class="fas fa-check"></i>
-									</div>
-									<div class="col-lg-4 nok">
-										<i class="fas fa-wine-bottle"></i> Cave <i class="fas fa-times"></i>
-									</div>
-									<div class="col-lg-4 ok">
-										<i class="fas fa-swimming-pool"></i> Piscine <i class="fas fa-check"></i>
-									</div>
-								</div>
-							</div>
+								</c:when>
+							</c:choose>
 						</div>
 					</section>
 
@@ -146,17 +270,108 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-12" data-option="optionsEnergy">
+							<div class="col-lg-12" data-option="detailOptionsEnergy">
 								<div class="row">
-									<div class="col-lg-6 energy-d">
-										<i class="far fa-lightbulb"></i> Consommation énergétique :
-										D
-									</div>
-									<div class="col-lg-6 gas-d">
-										<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-										D
-									</div>
-								</div>
+								<c:choose>
+									<c:when test="${ad.realEstate.energyLevel eq ''}">
+										<div class="col-lg-6 energy-na">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											N/R
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'A'.charAt(0)}">
+										<div class="col-lg-6 energy-a">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											A
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'B'.charAt(0)}">
+										<div class="col-lg-6 energy-b">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											B
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'C'.charAt(0)}">
+										<div class="col-lg-6 energy-c">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											C
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'D'.charAt(0)}">
+										<div class="col-lg-6 energy-d">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											D
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'E'.charAt(0)}">
+										<div class="col-lg-6 energy-e">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											E
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'F'.charAt(0)}">
+										<div class="col-lg-6 energy-f">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											F
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.energyLevel eq 'G'.charAt(0)}">
+										<div class="col-lg-6 energy-g">
+											<i class="far fa-lightbulb"></i> Consommation énergétique :
+											G
+										</div>
+									</c:when>
+								</c:choose>
+								<c:choose>
+									<c:when test="${ad.realEstate.gasLevel eq ''}">
+										<div class="col-lg-6 energy-na">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											N/R
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'A'.charAt(0)}">
+										<div class="col-lg-6 energy-a">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											A
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'B'.charAt(0)}">
+										<div class="col-lg-6 energy-b">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											B
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'C'.charAt(0)}">
+										<div class="col-lg-6 energy-c">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											C
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'D'.charAt(0)}">
+										<div class="col-lg-6 energy-d">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											D
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'E'.charAt(0)}">
+										<div class="col-lg-6 energy-e">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											E
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'F'.charAt(0)}">
+										<div class="col-lg-6 energy-f">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											F
+										</div>
+									</c:when>
+									<c:when test="${ad.realEstate.gasLevel eq 'G'.charAt(0)}">
+										<div class="col-lg-6 energy-g">
+											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
+											G
+										</div>
+									</c:when>
+								</c:choose>
 							</div>
 						</div>
 					</section>
@@ -172,64 +387,51 @@
 									Autres annonces à proximité
 								</div>
 							</div>
+
+							<c:forEach items="${requestScope.listAds}" var="ad">
+
 							<div class="row">
 								<div class="col-lg-12 text-center">
 									<article>
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<a href="detail.html">
-													<div class="row">
-														<div class="col-lg-12 text-center">
-															<img src="images/diapo2.jpg" class="img-fluid">
+										<form method="POST" action="detail" id="advertisement-<c:out value="${ad.id}" />">
+											<a role="button" href="#" id="advertisement-<c:out value="${ad.id}" />">
+												<div class="row">
+													<div class="col-lg-12 text-center">
+														<div class="row">
+															<div class="col-lg-12 text-center">
+																<img src="images/diapo1.jpg" class="img-fluid">
+															</div>
+														</div>
+														<div class="row" data-type="caption">
+															<div class="col-lg-6 align-left my-auto" data-type="realestate">
+																<div>
+																	<c:out value="${ad.transactionTypeToFrench()}" />
+																</div>
+																<div>
+																	<c:out value="${ad.realEstate.toFrench()}" />
+																<div>
+																</div>
+																	<c:out value="${ad.realEstate.area}" /> m²
+																</div>
+																<div>
+																	<c:out value="${ad.realEstate.city.name}" />
+																</div>
+															</div>
+															<div class="col-lg-6 my-auto" data-type="price">
+																<div>
+																	<c:out value="${ad.realEstate.price}" /> &euro;
+																</div>
+															</div>
 														</div>
 													</div>
-													<div class="row" data-type="caption">
-														<div class="col-lg-4 text-center my-auto"
-															data-type="sm-realestate">
-															<div class="text-center">Maison 190m²</div>
-														</div>
-														<div class="col-lg-4 text-center my-auto" data-type="sm-city">
-															<div class="text-center">Bordeaux</div>
-														</div>
-														<div class="col-lg-4 text-center my-auto" data-type="sm-price">
-															<div class="text-center">2000000 €</div>
-														</div>
-													</div>
-												</a>
-											</div>
-										</div>
+												</div>
+											</a>
+											<input type="hidden" id="advertisementId" name="advertisementId" value="<c:out value="${ad.id}" />">
+										</form>
 									</article>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-12 text-center">
-									<article>
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<a href="detail.html">
-													<div class="row">
-														<div class="col-lg-12 text-center">
-															<img src="images/diapo3.jpg" class="img-fluid">
-														</div>
-													</div>
-													<div class="row" data-type="caption">
-														<div class="col-lg-4 text-center my-auto"
-															data-type="sm-realestate">
-															<div class="text-center">Maison 100m²</div>
-														</div>
-														<div class="col-lg-4 text-center my-auto" data-type="sm-city">
-															<div class="text-center">Perpignan</div>
-														</div>
-														<div class="col-lg-4 text-center my-auto" data-type="sm-price">
-															<div class="text-center">1000000 €</div>
-														</div>
-													</div>
-												</a>
-											</div>
-										</div>
-									</article>
-								</div>
-							</div>
+							</c:forEach>
+							
 						</div>
 					</section>
 				</div>
@@ -241,7 +443,7 @@
 	</aside>
 
 	<!-- MODAL DE CONTACT DU VENDEUR -->
-	<%@ include file="contact-modal.html" %>
+	<%@ include file="contact-modal.jsp" %>
 
 	<!-- FOOTER -->
 	<%@ include file="footer.jsp" %>
