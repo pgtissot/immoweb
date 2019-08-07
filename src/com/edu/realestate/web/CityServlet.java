@@ -15,7 +15,7 @@ import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.City;
 import com.edu.realestate.services.ReferenceService;
 import com.edu.realestate.services.ReferenceServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class City
@@ -58,7 +58,7 @@ public class CityServlet extends HttpServlet {
 
 		try {
 			list = service.findCitiesByName(request.getParameter("input"));
-			response.getWriter().append(new ObjectMapper().writeValueAsString(list));
+			response.getWriter().append(new Gson().toJson(list));
 		} catch (RealEstateException e) {
 			response.sendError(500, "Problème inattendu côté serveur");
 		}
