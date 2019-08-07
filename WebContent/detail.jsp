@@ -70,7 +70,7 @@
 										</div>
 										<div><c:out value="${ad.realEstate.area}" /> m²</div>
 										<div><c:out value="${ad.realEstate.city.fullName}" /></div>
-										<div data-type="detail-price"><c:out value="${ad.realEstate.price}" /> &euro;</div>
+										<div data-type="detail-price"><c:out value="${ad.realEstate.priceFrench()}" /> &euro;</div>
 										<div>Postée le <c:out value="${ad.getFrenchReleaseDate()}" /></div>
 									</div>
 								</div>
@@ -273,7 +273,7 @@
 							<div class="col-lg-12" data-option="detailOptionsEnergy">
 								<div class="row">
 								<c:choose>
-									<c:when test="${ad.realEstate.energyLevel eq ''}">
+									<c:when test="${ad.realEstate.energyLevel eq '-'.charAt(0)}">
 										<div class="col-lg-6 energy-na">
 											<i class="far fa-lightbulb"></i> Consommation énergétique :
 											N/R
@@ -323,7 +323,7 @@
 									</c:when>
 								</c:choose>
 								<c:choose>
-									<c:when test="${ad.realEstate.gasLevel eq ''}">
+									<c:when test="${ad.realEstate.gasLevel eq '-'.charAt(0)}">
 										<div class="col-lg-6 energy-na">
 											<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
 											N/R
@@ -419,7 +419,7 @@
 															</div>
 															<div class="col-lg-6 my-auto" data-type="price">
 																<div>
-																	<c:out value="${ad.realEstate.price}" /> &euro;
+																	<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 																</div>
 															</div>
 														</div>

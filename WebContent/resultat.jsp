@@ -40,7 +40,7 @@
 				</div>
 				<div class="col-lg-2 text-center">
 					<div class="dropdown">
-						<button class="btn btn-info dropdown-toggle" type="button" id="searchSort"
+						<button class="btn btn-info dropdown-toggle" type="button" id="searchSort" name="sort"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Trier
 						</button>
@@ -68,50 +68,44 @@
 									Filtres
 								</div>
 							</div>
-							<form action="resultat.jsp" method="POST" data-form="filters">
+							<form action="search" method="POST" data-form="filters">
 								<div class="row">
 									<div class="col-lg-12 text-center">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
 											<label class="btn btn-info active">
-												<input type="radio" name="action" id="acheter" autocomplete="off"
+												<input type="radio" name="transactionType" id="Sale" autocomplete="off"
 													checked>Acheter
 											</label>
 											<label class="btn btn-info">
-												<input type="radio" name="action" id="louer" autocomplete="off">Louer
+												<input type="radio" name="transactionType" id="Rent" autocomplete="off">Louer
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-									<select class="form-control col-lg-12" id="realestate"></select>
+									<select class="form-control col-lg-12" name="realestate" id="realestate"></select>
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-12" id="city" placeholder="Ville">
-									<input type="hidden" id="cityid">
+									<input type="text" class="form-control col-lg-8" name="city" placeholder="Ville">
+									<input type="hidden" name="cityid">
+									<input type="text" class="form-control col-lg-3 offset-lg-1" name="distance" placeholder="Dist.(km)">
+									<input type="hidden" name="cityid">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" id="price-min"
-										placeholder="Prix Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="price-max"
-										placeholder="Prix Max">
+									<input type="text" class="form-control col-lg-5" name="price-min" placeholder="Prix Min">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="price-max" placeholder="Prix Max">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" id="surface-min"
-										placeholder="Surface Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="surface-max"
-										placeholder="Surface Max">
+									<input type="text" class="form-control col-lg-5" name="surface-min" placeholder="Surf. Min">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="surface-max" placeholder="Surf. Max">
 								</div>
 								<div class="row" data-search="land">
-									<input type="text" class="form-control col-lg-5" id="land-min"
-										placeholder="Terrain Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="land-max"
-										placeholder="Terrain Max">
+									<input type="text" class="form-control col-lg-5" name="land-min" placeholder="Terrain Min">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="land-max" placeholder="Terrain Max">
 								</div>
 								<div class="row" data-search="rooms">
-									<input type="text" class="form-control col-lg-5" id="rooms-min"
-										placeholder="Pièces Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="rooms-max"
-										placeholder="Pièces Max">
+									<input type="text" class="form-control col-lg-5" name="rooms-min" placeholder="Pièces Min">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="rooms-max" placeholder="Pièces Max">
 								</div>
 								<div class="col-lg-12" data-option="options">
 									<div class="row">
@@ -124,7 +118,7 @@
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="alarm" autocomplete="off"><i
 															class="far fa-bell"></i> Alarme
 													</label>
 												</div>
@@ -134,7 +128,7 @@
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="cellar" autocomplete="off"><i
 															class="fas fa-wine-bottle"></i>
 														Cave
 													</label>
@@ -145,7 +139,7 @@
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="swimmingPool" autocomplete="off"><i
 															class="fas fa-swimming-pool"></i>
 														Piscine
 													</label>
@@ -158,7 +152,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="alarm" autocomplete="off"><i
 															class="far fa-bell"></i> Alarme
 													</label>
 												</div>
@@ -166,7 +160,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="elevator" autocomplete="off"><i
 															class="far fa-building"></i> Ascenseur
 													</label>
 												</div>
@@ -176,7 +170,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="balcony" autocomplete="off"><i
 															class="fas fa-seedling"></i> Balcon
 													</label>
 												</div>
@@ -184,7 +178,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="digicode" autocomplete="off"><i
 															class="fas fa-lock"></i>
 														Digicode
 													</label>
@@ -195,7 +189,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="garage" autocomplete="off"><i
 															class="fas fa-car"></i>
 														Garage
 													</label>
@@ -204,7 +198,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="intercom" autocomplete="off"><i
 															class="fab fa-intercom"></i> Intercom
 													</label>
 												</div>
@@ -214,7 +208,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="parking" autocomplete="off"><i
 															class="fas fa-parking"></i>
 														Parking
 													</label>
@@ -223,7 +217,7 @@
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+														<input type="checkbox" name="terrace" autocomplete="off"><i
 															class="fas fa-fan"></i>
 														Terrasse
 													</label>
@@ -238,7 +232,7 @@
 									</div>
 									<div class="col-lg-12" data-option="optionsEnergy">
 										<div class="row">
-											<select class="form-control col-lg-12" id="energy-level">
+											<select class="form-control col-lg-12" name="energyLevel" id="energy-level">
 												<option disabled selected>Énergie (kWh/m²/an)</option>
 												<option class="energy-a" value="A">A (jusqu'à 50)</option>
 												<option class="energy-b" value="B">A-B (jusqu'à 90)</option>
@@ -250,7 +244,7 @@
 											</select>
 										</div>
 										<div class="row">
-											<select class="form-control col-lg-12" id="gas-level">
+											<select class="form-control col-lg-12" name="gasLevel" id="gas-level">
 												<option disabled selected>GES (Kg éqCO2/m²/an)</option>
 												<option class="gas-a" value="A">A (jusqu'à 5)</option>
 												<option class="gas-b" value="B">A-B (jusqu'à 10)</option>
@@ -306,7 +300,7 @@
 														</div>
 														<div class="col-lg-6 my-auto" data-type="price">
 															<div>
-																<c:out value="${ad.realEstate.price}" /> &euro;
+																<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 															</div>
 														</div>
 													</div>

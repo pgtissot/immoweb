@@ -1,6 +1,7 @@
 package com.edu.realestate.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -60,47 +61,50 @@ public class SearchServlet extends HttpServlet {
 		SearchCriteria sc = null;
 		RealEstateType re = null;
 		
-		try {
+//		try {
 			sc = new SearchCriteria();
 			re = RealEstateType.valueOf(request.getParameter("realestate"));
-			sc.setTransactionType(TransactionType.valueOf(request.getParameter("transactionType")));
 			sc.setRealEstateType(re);
 
-			if (request.getParameter("cityId") != null)
+			if (request.getParameter("transactionType") != null)
+				sc.setTransactionType(TransactionType.valueOf(request.getParameter("transactionType")));
+
+			if (request.getParameter("cityId") != null && !request.getParameter("cityId").equals(""))
 				sc.setCityId(Integer.parseInt(request.getParameter("cityId")));
 
-			if (!request.getParameter("area-min").equals(""))
+			if (request.getParameter("area-min") != null && !request.getParameter("area-min").equals(""))
 				sc.setAreaMin(Integer.parseInt(request.getParameter("area-min")));
 
-			if (!request.getParameter("area-max").equals(""))
+			if (request.getParameter("area-max") != null && !request.getParameter("area-max").equals(""))
 				sc.setAreaMax(Integer.parseInt(request.getParameter("area-max")));
 
-			if (!request.getParameter("price-min").equals(""))
+			if (request.getParameter("price-min") != null && !request.getParameter("price-min").equals(""))
 				sc.setPriceMin(Integer.parseInt(request.getParameter("price-min")));
 
-			if (!request.getParameter("price-max").equals(""))
+			if (request.getParameter("price-max") != null && !request.getParameter("price-max").equals(""))
 				sc.setPriceMax(Integer.parseInt(request.getParameter("price-max")));
 
-			if (!request.getParameter("distance").equals(""))
+			if (request.getParameter("distance") != null && !request.getParameter("distance").equals(""))
 				sc.setDistance(Integer.parseInt(request.getParameter("distance")));
 			
-			sc.setLimit(10);
+			sc.setLimit(20);
 
-		} catch (Exception e) {
-			response.sendError(422, "Problème de paramètre");
-		}
+//		} catch (Exception e) {
+//			response.sendError(422, "Problème de paramètre");
+//		}
 
+		List<Advertisement> lads = new ArrayList<>();
 		try {
-			List<Advertisement> lads = service.findAdsByCriteria(sc);
-			request.setAttribute("listAds", lads);
-			request.setAttribute("realEstate", re);
-			request.setAttribute("countAds", lads.size());
-
+			lads = service.findAdsByCriteria(sc);
 			//TODO : maybe, add the YelpSearch call
 
 		} catch (RealEstateException ree) {
 			response.sendError(500, "Problème inattendu côté serveur");
 		}
+
+		request.setAttribute("listAds", lads);
+		request.setAttribute("realEstate", re);
+		request.setAttribute("countAds", lads.size());
 
 		getServletContext().getRequestDispatcher("/resultat.jsp").forward(request, response);
 

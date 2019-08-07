@@ -155,7 +155,7 @@
 												</div>
 												<div class="col-lg-6 my-auto" data-type="price">
 													<div>
-														<c:out value="${ad.realEstate.price}" /> &euro;
+														<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 													</div>
 												</div>
 											</div>
