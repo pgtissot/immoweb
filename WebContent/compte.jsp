@@ -21,9 +21,7 @@
 
 <body>
 	<!-- ENTETE HEADER -->
-
-		<%@ include file="header.jsp"%>
-
+	<%@ include file="header.jsp"%>
 
 	<!-- NAV -->
 	<div id="container">

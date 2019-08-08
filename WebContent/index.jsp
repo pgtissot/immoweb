@@ -80,7 +80,7 @@
 										<div class="col-lg-3 offset-lg-1">
 											<div class="row">
 												<input type="text" class="form-control" name="city" id="city" placeholder="Ville">
-													<input type="hidden" name="cityId">
+													<input type="hidden" name="cityId" id="cityId">
 											</div>
 										</div>
 										<div class="col-lg-3 offset-lg-1">
