@@ -125,6 +125,7 @@ function realEstateToggleOptions() {
 	$('div[data-option="optionsApartment"]').css("display", optA);
 	$('div[data-option="optionsHouse"]').css("display", optM);
 	$('div[data-search="land"]').css("display", optL);
+	$('div[data-search="floor"]').css("display", optF);
 	$('div[data-search="rooms"]').css("display", optR);
 	$('div[data-search="floor"]').css("display", optF);
 }
