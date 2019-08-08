@@ -17,8 +17,8 @@
 	<link rel="stylesheet" href="fontawesome/css/all.css" />
 	<link rel="stylesheet" href="css/styles.css" />
 	<script src="jquery/jquery-3.4.1.js"></script>
-	<script src="bootstrap-4.3.1/js/bootstrap.bundle.js"></script>
-	<script src="bootstrap-4.3.1/js/bootstrap.js"></script>
+<!-- 	<script src="bootstrap-4.3.1/js/bootstrap.bundle.js"></script>
+ -->	<script src="bootstrap-4.3.1/js/bootstrap.js"></script>
 	<script src="typeahead/bootstrap3-typeahead.js"></script>
 	<script src="js/codes.js"></script>
 
@@ -31,30 +31,32 @@
 	
 	<!-- NAVIGATION -->
 
+	<c:set var="oldRequest" value="${requestScope.searchRequest}" />
+	
 	<!-- DROP DOWNS -->
 	<section class="shadow">
-		<div class="container-fluid" id="searchheader">
-			<div class="row">
-				<div class="col-lg-10 my-auto bigfont">
-				Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultats
-				</div>
-				<div class="col-lg-2 text-center">
-					<div class="dropdown">
-						<button class="btn btn-info dropdown-toggle" type="button" id="searchSort" name="sort"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Trier
-						</button>
-						<div class="dropdown-menu" aria-labelledby="searchSort">
-							<a class="dropdown-item" href="#">Prix / croissant</a>
-							<a class="dropdown-item" href="#">Prix / décroissant</a>
-							<a class="dropdown-item" href="#">Surface / croissant</a>
-							<a class="dropdown-item" href="#">Surface / décroissant</a>
-						</div>
+		<form action="search" method="POST">
+			<div class="container-fluid" id="searchheader">
+				<div class="row">
+					<div class="col-lg-8 my-auto bigfont">
+					Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultats
+					</div>
+					<div class="col-lg-2 text-center">
+						<select class="form-control" name="sort">
+							<option value="price ASC">Prix / croissant</option>
+							<option value="price DESC">Prix / décroissant</option>
+							<option value="surface ASC">Surface / croissant</option>
+							<option value="surface DESC">Surface / décroissant</option>
+						</select>
+					</div>
+					<div class="col-lg-2 text-center">
+						<input class="btn btn-info" type="submit" value="Trier">
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</section>
+		
 
 	<!-- FILTRES & ANNONCES  -->
 	<section>
@@ -73,39 +75,38 @@
 									<div class="col-lg-12 text-center">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
 											<label class="btn btn-info active">
-												<input type="radio" name="transactionType" id="Sale" autocomplete="off"
-													checked>Acheter
+												<input type="radio" name="transactionType" value="Sale" autocomplete="off" checked>Acheter
 											</label>
 											<label class="btn btn-info">
-												<input type="radio" name="transactionType" id="Rent" autocomplete="off">Louer
+												<input type="radio" name="transactionType" value="Rent" autocomplete="off">Louer
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<select class="form-control col-lg-12" name="realestate" id="realestate"></select>
+									<input type="hidden" name="oldre" id="oldre" value="<c:out value="${oldRequest.getParameter('realestate')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-8" name="city" placeholder="Ville">
-									<input type="hidden" name="cityid">
-									<input type="text" class="form-control col-lg-3 offset-lg-1" name="distance" placeholder="Dist.(km)">
-									<input type="hidden" name="cityid">
+									<input type="text" class="form-control col-lg-8" name="city" id="city" placeholder="Ville" value="<c:out value="${oldRequest.getParameter('city')}" />">
+									<input type="hidden" name="cityId" id="cityId">
+									<input type="text" class="form-control col-lg-3 offset-lg-1" name="distance" placeholder="Dist.(km)" value="<c:out value="${oldRequest.getParameter('distance')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" name="price-min" placeholder="Prix Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" name="price-max" placeholder="Prix Max">
+									<input type="text" class="form-control col-lg-5" name="price-min" placeholder="Prix Min" value="<c:out value="${oldRequest.getParameter('price-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="price-max" placeholder="Prix Max"value="<c:out value="${oldRequest.getParameter('price-max')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" name="surface-min" placeholder="Surf. Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" name="surface-max" placeholder="Surf. Max">
+									<input type="text" class="form-control col-lg-5" name="area-min" placeholder="Surf. Min" value="<c:out value="${oldRequest.getParameter('area-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="area-max" placeholder="Surf. Max" value="<c:out value="${oldRequest.getParameter('area-max')}" />">
 								</div>
 								<div class="row" data-search="land">
-									<input type="text" class="form-control col-lg-5" name="land-min" placeholder="Terrain Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" name="land-max" placeholder="Terrain Max">
+									<input type="text" class="form-control col-lg-5" name="land-min" placeholder="Terrain Min" value="<c:out value="${oldRequest.getParameter('land-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="land-max" placeholder="Terrain Max" value="<c:out value="${oldRequest.getParameter('land-max')}" />">
 								</div>
 								<div class="row" data-search="rooms">
-									<input type="text" class="form-control col-lg-5" name="rooms-min" placeholder="Pièces Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" name="rooms-max" placeholder="Pièces Max">
+									<input type="text" class="form-control col-lg-5" name="rooms-min" placeholder="Pièces Min" value="<c:out value="${oldRequest.getParameter('rooms-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="rooms-max" placeholder="Pièces Max" value="<c:out value="${oldRequest.getParameter('rooms-max')}" />">
 								</div>
 								<div class="col-lg-12" data-option="options">
 									<div class="row">
@@ -117,9 +118,10 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('alarm').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="alarm" autocomplete="off"><i
-															class="far fa-bell"></i> Alarme
+															class="far fa-bell"></i>
+															Alarme
 													</label>
 												</div>
 											</div>
@@ -127,8 +129,8 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" name="cellar" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('cellar').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="cellar"autocomplete="off"><i
 															class="fas fa-wine-bottle"></i>
 														Cave
 													</label>
@@ -138,7 +140,7 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('swimmingPool').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="swimmingPool" autocomplete="off"><i
 															class="fas fa-swimming-pool"></i>
 														Piscine
@@ -151,7 +153,7 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('alarm').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="alarm" autocomplete="off"><i
 															class="far fa-bell"></i> Alarme
 													</label>
@@ -159,7 +161,7 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('elevator').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="elevator" autocomplete="off"><i
 															class="far fa-building"></i> Ascenseur
 													</label>
@@ -169,7 +171,7 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('balcony').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="balcony" autocomplete="off"><i
 															class="fas fa-seedling"></i> Balcon
 													</label>
@@ -177,7 +179,7 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('digicode').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="digicode" autocomplete="off"><i
 															class="fas fa-lock"></i>
 														Digicode
@@ -188,7 +190,7 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('garage').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="garage" autocomplete="off"><i
 															class="fas fa-car"></i>
 														Garage
@@ -197,7 +199,7 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('intercom').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="intercom" autocomplete="off"><i
 															class="fab fa-intercom"></i> Intercom
 													</label>
@@ -207,7 +209,7 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('parking').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="parking" autocomplete="off"><i
 															class="fas fa-parking"></i>
 														Parking
@@ -216,7 +218,7 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('terrace').equals('on')}">active</c:if> ">
 														<input type="checkbox" name="terrace" autocomplete="off"><i
 															class="fas fa-fan"></i>
 														Terrasse
@@ -242,6 +244,7 @@
 												<option class="energy-f" value="F">A-F (jusqu'à 450)</option>
 												<option class="energy-g" value="G">A-G (Tous)</option>
 											</select>
+											<input type="hidden" name="oldenergy" id="oldenergy" value="<c:out value="${oldRequest.getParameter('energyLevel')}" />">
 										</div>
 										<div class="row">
 											<select class="form-control col-lg-12" name="gasLevel" id="gas-level">
@@ -254,6 +257,7 @@
 												<option class="gas-f" value="F">A-F (jusqu'à 80)</option>
 												<option class="gas-g" value="G">A-G (Tous)</option>
 											</select>
+											<input type="hidden" name="oldgas" id="oldgas" value="<c:out value="${oldRequest.getParameter('gasLevel')}" />">
 										</div>
 									</div>
 								</div>

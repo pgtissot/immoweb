@@ -24,25 +24,32 @@ $(document).ready(function() {
 });
 
 
-/* PAGE COMPTE */
 
-$(document).ready(function() {
-	$("#modDataButton").click(function() {
-		$("#modData").fadeIn(500);
-		$("#showData").hide();
-		$("#welcome").hide();
-		$("#personnel").fadeIn(500);
+
+/*LOGIN /REGISTER TOGGLE */
+
+
+
+$(document).ready(function(){
+	$("#loginLink").click(function() {
+		$("#loginLink").addClass("active");
+		$("#registerLink").removeClass("active");
+		$("#registrationForm").hide();
+		$("#loginForm").show();
 	});
+	
 });
 
-$(document).ready(function() {
-	$(".fa-window-close").click(function() {
-		$("#modData").hide();
-		$("#showData").fadeIn(500);
-		$("#welcome").fadeIn(500);
-		$("#personnel").fadeIn(500);
+$(document).ready(function(){
+
+	$("#registerLink").click(function() {
+		$("#loginLink").removeClass("active");
+		$("#registerLink").addClass("active");
+		$("#loginForm").hide();
+		$("#registrationForm").show();
 	});
-});
+	});
+
 
 
 /* FUNCTION MONTRE PASS */
@@ -78,6 +85,10 @@ $(document).ready(function() {
 });
 
 
+
+
+
+
 /* REALESTATE FUNCTIONS */
 
 function addRealEstatesToSelect() {
@@ -90,21 +101,32 @@ function addRealEstatesToSelect() {
 			realEstateToggleOptions();
 		});
 	});
+
+	var presetRealEstate = $('#oldre').val();
+	setTimeout(function () {
+		$('#realestate option[value="'+presetRealEstate+'"]').prop('selected', true);
+	}, 10);
+	setTimeout(function () {
+		realEstateToggleOptions();
+	}, 10);
+
 }
 
 function realEstateToggleOptions() {
 	var value = $('#realestate').val();
-	var opts = (value == "Maison" || value == "Appartement" ? "block" : "none");
-	var optA = (value == "Appartement" ? "block" : "none");
-	var optM = (value == "Maison" ? "block" : "none");
-	var optL = (value == "Maison" ? "" : "none");
-	var optR = (value == "Maison" || value == "Appartement" ? "" : "none");
+	var opts = (value == "House" || value == "Apartment" ? "block" : "none");
+	var optA = (value == "Apartment" ? "block" : "none");
+	var optM = (value == "House" ? "block" : "none");
+	var optL = (value == "House" ? "" : "none");
+	var optF = (value == "Apartment" ? "block" : "none");
+	var optR = (value == "House" || value == "Apartment" ? "" : "none");
 
 	$('div[data-option="options"]').css("display", opts);
 	$('div[data-option="optionsApartment"]').css("display", optA);
 	$('div[data-option="optionsHouse"]').css("display", optM);
 	$('div[data-search="land"]').css("display", optL);
 	$('div[data-search="rooms"]').css("display", optR);
+	$('div[data-search="floor"]').css("display", optF);
 }
 
 $(document).ready(addRealEstatesToSelect);
@@ -120,6 +142,7 @@ function energyOptionToggle() {
 		$('#energy-level:focus').removeClass("energy-" + e);
 	});
 	var value = $('#energy-level').val().toLowerCase();
+	console.log('In toggle : '+$('#energy-level').val());
 	if (typeof value != "undefined") {
 		$('#energy-level').addClass("energy-" + value);
 		$('#energy-level:focus').addClass("energy-" + value);
@@ -132,11 +155,29 @@ function gasOptionToggle() {
 		$('#gas-level:focus').removeClass("gas-" + e);
 	});
 	var value = $('#gas-level').val().toLowerCase();
+	console.log('In toggle : '+$('#gas-level').val());
 	if (typeof value != "undefined") {
 			$('#gas-level').addClass("gas-" + value);
 			$('#gas-level:focus').addClass("gas-" + value);
 	}
 }
+
+
+function presetEnergyOptions() {
+	var presetEnergy = $('#oldenergy').val();
+	var presetGas = $('#oldgas').val();
+
+	setTimeout(function () {
+		$('#energy-level option[value="'+presetEnergy+'"]').prop('selected', true);
+		$('#gas-level option[value="'+presetGas+'"]').prop('selected', true);
+	}, 10);
+	setTimeout(function () {
+		energyOptionToggle();
+		gasOptionToggle();
+	}, 10);
+}
+
+$(document).ready(presetEnergyOptions);
 
 $(document).ready(function() {
 	function changeEnergy() {
@@ -190,10 +231,12 @@ function cityAutoCompletion(cityInput) {
 function setHiddenIdCity(cityInput) {
 	currentInput = cityInput.typeahead("getActive");
 	var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
-			+ encodeURI(currentInput.name);
+			+ encodeURI(currentInput.name) + "&exact=1";
+	console.log(url);
 	$.get(url, function(response) {
+		console.log(response);
 		var completions = JSON.parse(response);
-		$('#cityid').val(completions[0].id);
+		$('#cityId').val(completions[0].id);
 	});
 
 }

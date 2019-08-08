@@ -231,6 +231,10 @@ div[data-type="detail-realestate"] {
 	padding-bottom : 20px;
 }
 
+div[data-type="detail-city"] {
+	padding-top : 20px;
+}
+
 div[data-type="detail-price"] {
 	padding : 20px;
 }
@@ -333,12 +337,28 @@ div#favoris {
 
 
 
+
+
+
 /* REGISTER */
 
 span#hidemoderator {
 	display: none;
 }
 
+#registrationForm {
+	display: none;
+	margin-top: 25px;
+	}
+#loginForm {
+	margin-top: 25px;
+	}
+
+#loginForm .btn-primary {
+	margin-top: 15px;
+	
+	
+}
 
 
 /* MODERATION */

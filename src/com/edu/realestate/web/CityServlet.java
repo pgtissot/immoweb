@@ -57,7 +57,8 @@ public class CityServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
-			list = service.findCitiesByName(request.getParameter("input"));
+			boolean exact = (request.getParameter("exact") != null && request.getParameter("exact").equals("1"));
+			list = service.findCitiesByName(request.getParameter("input"), exact);
 			response.getWriter().append(new Gson().toJson(list));
 		} catch (RealEstateException e) {
 			response.sendError(500, "Problème inattendu côté serveur");
