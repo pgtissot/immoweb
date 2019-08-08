@@ -24,25 +24,32 @@ $(document).ready(function() {
 });
 
 
-/* PAGE COMPTE */
 
-$(document).ready(function() {
-	$("#modDataButton").click(function() {
-		$("#modData").fadeIn(500);
-		$("#showData").hide();
-		$("#welcome").hide();
-		$("#personnel").fadeIn(500);
+
+/*LOGIN /REGISTER TOGGLE */
+
+
+
+$(document).ready(function(){
+	$("#loginLink").click(function() {
+		$("#loginLink").addClass("active");
+		$("#registerLink").removeClass("active");
+		$("#registrationForm").hide();
+		$("#loginForm").show();
 	});
+	
 });
 
-$(document).ready(function() {
-	$(".fa-window-close").click(function() {
-		$("#modData").hide();
-		$("#showData").fadeIn(500);
-		$("#welcome").fadeIn(500);
-		$("#personnel").fadeIn(500);
+$(document).ready(function(){
+
+	$("#registerLink").click(function() {
+		$("#loginLink").removeClass("active");
+		$("#registerLink").addClass("active");
+		$("#loginForm").hide();
+		$("#registrationForm").show();
 	});
-});
+	});
+
 
 
 /* FUNCTION MONTRE PASS */
@@ -76,6 +83,10 @@ $(document).ready(function() {
 		}
 	});
 });
+
+
+
+
 
 
 /* REALESTATE FUNCTIONS */

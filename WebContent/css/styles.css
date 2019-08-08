@@ -333,12 +333,28 @@ div#favoris {
 
 
 
+
+
+
 /* REGISTER */
 
 span#hidemoderator {
 	display: none;
 }
 
+#registrationForm {
+	display: none;
+	margin-top: 25px;
+	}
+#loginForm {
+	margin-top: 25px;
+	}
+
+#loginForm .btn-primary {
+	margin-top: 15px;
+	
+	
+}
 
 
 /* MODERATION */
