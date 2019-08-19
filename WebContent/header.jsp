@@ -15,8 +15,8 @@
 <header>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-3 my-auto text-center">
-				<a class="btn btn-primary hfbutton" role="button" href="home">LOGO</a>
+			<div class="col-lg-3 my-auto logo">
+				<a href="home"><img src="images/logo.svg.png" class="img-fluid"></a>
 			</div>
 			<div class="col-lg-3 my-auto text-center">
 				<div class="row">
@@ -32,7 +32,7 @@
 			<div class="col-lg-6 my-auto" id="notlogged">
 				<div class="row">
 					<div class="col-lg-6 text-center my-auto">
-						<i class="fas fa-envelope-open-text"></i> Dépôt d'annonce réservé aux utilisateurs inscrits.
+						<i class="fas fa-envelope-open-text"></i> Dépôt réservé aux inscrits.
 					</div>
 					<div class="col-lg-6 text-center my-auto">
 						<button type="button" class="btn btn-primary hfbutton" data-toggle="modal"

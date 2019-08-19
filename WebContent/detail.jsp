@@ -13,6 +13,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Détails d'un bien immobilier</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.css" />
 	<link rel="stylesheet" href="css/styles.css" />
@@ -57,11 +58,7 @@
 						<div class="row annoncedetail">
 							<div class="col-lg-7">
 								<div class="row">
-									<div class="col-lg-1 my-auto"><a href="#"><i class="fas fa-chevron-left"></i></a>
-									</div>
-									<div class="col-lg-10"><img src="images/diapo1.jpg" class="img-fluid"></div>
-									<div class="col-lg-1 my-auto"><a href="#"><i class="fas fa-chevron-right"></i></a>
-									</div>
+									<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
 								</div>
 							</div>
 							<div class="col-lg-5 text-center my-auto">
@@ -92,8 +89,21 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-lg-12 text-center">
-										<div id="favoris"><a href="#"><i class="far fa-heart"></i> Favoris</a></div>
+									<div class="col-lg-12 text-center updateFavoriteButton">
+										<c:choose>
+											<c:when test="${favorite eq null}">
+												<button type="button" class="btn btn-info" data-toggle="modal"
+													data-target="#addFavoriteModal">
+													<i class="far fa-heart"></i> Ajouter aux Favoris
+												</button>
+											</c:when>
+											<c:when test="${favorite ne null}">
+												<button type="button" class="btn btn-danger" data-toggle="modal"
+													data-target="#removeFavoriteModal">
+													<i class="far fa-heart"></i> Enlever des Favoris
+												</button>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</div>
@@ -396,6 +406,69 @@
 						</section>
 					</c:if>
 
+					<section>
+						<div class="row">
+							<div class="col-lg-12 text-center sectiontitle">
+								Commerces à proximité sur Yelp 
+							</div>
+						</div>
+
+						<c:forEach items="${requestScope.yelpResult.businessList}" var="yBus">
+
+							<section class="border">
+								<div class="row">
+									<div class="col-lg-5">
+									 	<a href="<c:out value="${yBus.url}" />"><c:out value="${yBus.name}" /></a>
+									</div>
+									<div class="col-lg-5">
+									 	<c:out value="${yBus.categories}" />
+									</div>
+									<div class="col-lg-2">
+									 	<c:out value="${yBus.rating}" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+									 	<c:out value="${yBus.address}" />
+									</div>
+								</div>
+							</section>
+
+						</c:forEach>
+						
+					</section>
+
+					<section>
+						<div class="row">
+							<div class="col-lg-12 text-center sectiontitle">
+								Événements à proximité sur Yelp 
+							</div>
+						</div>
+
+						<c:forEach items="${requestScope.yelpResult.eventList}" var="yEvt">
+
+							<section class="border">
+								<div class="row">
+									<div class="col-lg-4">
+									 	<a href="<c:out value="${yEvt.url}" />"><c:out value="${yEvt.name}" /></a>
+									</div>
+									<div class="col-lg-4">
+									 	<c:out value="${yEvt.formatDateTime(yEvt.timeStart)}" />
+									</div>
+									<div class="col-lg-4">
+									 	<c:out value="${yEvt.free eq true ? 'gratuit': 'payant'}"/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+									 	<c:out value="${yEvt.description}" />
+									</div>
+								</div>
+							</section>
+						</c:forEach>
+
+					</section>
+
 				<!-- AUTRES ANNONCES -->
 
 				</div>
@@ -419,7 +492,7 @@
 														<div class="col-lg-12 text-center">
 															<div class="row">
 																<div class="col-lg-12 text-center">
-																	<img src="images/diapo1.jpg" class="img-fluid">
+																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
 																</div>
 															</div>
 															<div class="row" data-type="caption">
@@ -465,6 +538,8 @@
 
 	<!-- MODAL DE CONTACT DU VENDEUR -->
 	<%@ include file="contact-modal.jsp" %>
+	<!-- MODALS DE FAVORIS -->
+	<%@ include file="favorite-modal.jsp" %>
 
 	<!-- FOOTER -->
 	<%@ include file="footer.jsp" %>

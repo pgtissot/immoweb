@@ -1,6 +1,6 @@
 /* GENERAL */
 
-/**[class^="col-"] {
+/*[class^="col-"] {
 	border-width: 1px;
 	border-style: solid;
 	background-color: lightgray;
@@ -335,9 +335,9 @@ div#favoris {
 	margin: 20px;
 }
 
-
-
-
+.updateFavoriteButton {
+	margin-top: 20px;
+}
 
 
 /* REGISTER */

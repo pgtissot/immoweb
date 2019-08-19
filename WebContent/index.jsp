@@ -8,6 +8,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Accueil</title>
+<link rel="shortcut icon" href="./images/favicon.ico">
 <link
 	href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap"
 	rel="stylesheet">
@@ -135,7 +136,7 @@
 										<div class="col-lg-12 text-center">
 											<div class="row">
 												<div class="col-lg-12 text-center">
-													<img src="images/diapo1.jpg" class="img-fluid">
+													<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
 												</div>
 											</div>
 											<div class="row" data-type="caption">

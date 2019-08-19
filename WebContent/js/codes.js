@@ -280,6 +280,17 @@ function userTypeToggleModeratorName() {
 
 $(document).ready(addUserTypesToSelect);
 
+
+/* FAVORIS SLIDER */
+
+$(document).ready(function() {
+	$("#priority").change(function () {
+		$("#priorityValue").val($("#priority").val());	
+	});
+	
+});
+
+
 /* LOADING THE PAGE */
 
 /* LOGIN */

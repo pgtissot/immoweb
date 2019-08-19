@@ -53,7 +53,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<input type="submit" class="btn btn-primary" value="Envoyer">
+							<input type="submit" class="btn btn-info" value="Envoyer">
 						</div>
 					</form>
 				</div>

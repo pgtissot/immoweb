@@ -6,6 +6,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Modération d'annonces</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.css" />
 	<link rel="stylesheet" href="fontawesome/css/all.css" />

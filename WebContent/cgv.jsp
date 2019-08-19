@@ -9,6 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Conditions Générales de Vente</title>
+<link rel="shortcut icon" href="./images/favicon.ico">
 <link
 	href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap"
 	rel="stylesheet">

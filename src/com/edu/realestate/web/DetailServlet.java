@@ -11,12 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.edu.realestate.model.Advertisement;
+import com.edu.realestate.model.Favorite;
 import com.edu.realestate.model.RealEstateType;
 import com.edu.realestate.model.SearchCriteria;
 import com.edu.realestate.services.AdvertisementService;
 import com.edu.realestate.services.AdvertisementServiceImpl;
+import com.edu.realestate.services.FavoriteService;
+import com.edu.realestate.services.FavoriteServiceImpl;
 import com.edu.realestate.services.ReferenceService;
 import com.edu.realestate.services.ReferenceServiceImpl;
+import com.edu.realestate.yelp.YelpResult;
 
 /**
  * Servlet implementation class SearchServlet
@@ -26,6 +30,7 @@ public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private AdvertisementService adService;
+	private FavoriteService favService;
 	private ReferenceService refService;
 
 	/**
@@ -42,6 +47,7 @@ public class DetailServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		adService = new AdvertisementServiceImpl();
+		favService = new FavoriteServiceImpl();
 		refService = new ReferenceServiceImpl();
 	}
 
@@ -50,6 +56,7 @@ public class DetailServlet extends HttpServlet {
 	 */
 	public void destroy() {
 		adService = null;
+		favService = null;
 		refService = null;
 	}
 
@@ -66,6 +73,16 @@ public class DetailServlet extends HttpServlet {
 			String id = request.getParameter("advertisementId");
 			Advertisement ad = adService.findAdvertisementById(id);
 			request.setAttribute("ad", ad);
+			
+//			String username = request.getParameter("username");
+//			request.setAttribute("favorite", favService.isFavAd(username, Integer.parseInt(id)));
+
+			String username = "pgthebest@blah.fr";
+			Favorite favorite = favService.getFavByAdId(username, Integer.parseInt(id));
+			request.setAttribute("favorite", favorite);
+
+			YelpResult yelpResult = adService.findYelpData(ad.getRealEstate().getCity());
+			request.setAttribute("yelpResult", yelpResult);
 
 			sc = new SearchCriteria();
 			sc.setCityId(ad.getRealEstate().getCity().getId());

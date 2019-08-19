@@ -62,7 +62,7 @@ public class SearchServlet extends HttpServlet {
 		RealEstateType re = null;
 		
 		System.out.println(request.getParameter("sort"));
-		
+
 		try {
 			sc = new SearchCriteria();
 			re = RealEstateType.valueOf(request.getParameter("realestate"));
@@ -117,6 +117,9 @@ public class SearchServlet extends HttpServlet {
 				
 			if (request.getParameter("gasLevel") != null)
 				sc.setEnergyLevel(request.getParameter("gasLevel").charAt(0));
+
+			if (request.getParameter("sort") != null)
+				sc.setSort(request.getParameter("sort"));
 			
 			System.out.println(sc);
 			
@@ -129,8 +132,6 @@ public class SearchServlet extends HttpServlet {
 		List<Advertisement> lads = new ArrayList<>();
 		try {
 			lads = service.findAdsByCriteria(sc);
-			//TODO : maybe, add the YelpSearch call
-
 		} catch (RealEstateException ree) {
 			response.sendError(500, "Problème inattendu côté serveur");
 		}

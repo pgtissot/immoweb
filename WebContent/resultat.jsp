@@ -12,6 +12,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Résultats de la recherche</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.css" />
 	<link rel="stylesheet" href="fontawesome/css/all.css" />
@@ -35,26 +36,11 @@
 	
 	<!-- DROP DOWNS -->
 	<section class="shadow">
-		<form action="search" method="POST">
-			<div class="container-fluid" id="searchheader">
-				<div class="row">
-					<div class="col-lg-8 my-auto bigfont">
-					Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultats
-					</div>
-					<div class="col-lg-2 text-center">
-						<select class="form-control" name="sort">
-							<option value="price ASC">Prix / croissant</option>
-							<option value="price DESC">Prix / décroissant</option>
-							<option value="surface ASC">Surface / croissant</option>
-							<option value="surface DESC">Surface / décroissant</option>
-						</select>
-					</div>
-					<div class="col-lg-2 text-center">
-						<input class="btn btn-info" type="submit" value="Trier">
-					</div>
-				</div>
+		<div class="container-fluid" id="searchheader">
+			<div class="col-lg-12 my-auto bigfont">
+			Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultat<c:if test="${requestScope.countAds > 1}">s</c:if> 
 			</div>
-		</form>
+		</div>
 	</section>
 		
 
@@ -262,6 +248,21 @@
 									</div>
 								</div>
 								<div class="row">
+									<div class="col-lg-12 text-center optiontitle">
+										Tri
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 text-center">
+										<select class="form-control" name="sort">
+											<option value="price ASC">Prix / croissant</option>
+											<option value="price DESC">Prix / décroissant</option>
+											<option value="area ASC">Surface / croissant</option>
+											<option value="area DESC">Surface / décroissant</option>
+										</select>
+									</div>
+								</div>
+								<div class="row">
 									<div class="col-lg-12 text-center" id="submit">
 										<input class="btn btn-info" type="submit" value="Rechercher">
 									</div>
@@ -284,7 +285,7 @@
 												<div class="col-lg-12 text-center">
 													<div class="row">
 														<div class="col-lg-12 text-center">
-															<img src="images/diapo1.jpg" class="img-fluid">
+															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
 														</div>
 													</div>
 													<div class="row" data-type="caption">
