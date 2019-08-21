@@ -143,7 +143,6 @@ function energyOptionToggle() {
 		$('#energy-level:focus').removeClass("energy-" + e);
 	});
 	var value = $('#energy-level').val().toLowerCase();
-	console.log('In toggle : '+$('#energy-level').val());
 	if (typeof value != "undefined") {
 		$('#energy-level').addClass("energy-" + value);
 		$('#energy-level:focus').addClass("energy-" + value);
@@ -156,7 +155,6 @@ function gasOptionToggle() {
 		$('#gas-level:focus').removeClass("gas-" + e);
 	});
 	var value = $('#gas-level').val().toLowerCase();
-	console.log('In toggle : '+$('#gas-level').val());
 	if (typeof value != "undefined") {
 			$('#gas-level').addClass("gas-" + value);
 			$('#gas-level:focus').addClass("gas-" + value);
@@ -233,9 +231,7 @@ function setHiddenIdCity(cityInput) {
 	currentInput = cityInput.typeahead("getActive");
 	var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
 			+ encodeURI(currentInput.name) + "&exact=1";
-	console.log(url);
 	$.get(url, function(response) {
-		console.log(response);
 		var completions = JSON.parse(response);
 		$('#cityId').val(completions[0].id);
 	});
@@ -249,6 +245,8 @@ $(document).ready(function() {
 	;
 	$('#city').keyup(cityInput);
 });
+
+$(document).ready(setHiddenIdCity);
 
 $(document).ready(function() {
 	function changeInput() {
@@ -327,22 +325,29 @@ $(document).ready(removeFavoris);
 
 /* LOGIN */
 
-/*
- * $(document).ready( function () { $('form#login').submit( function (event) {
- * $(this).validate(); if ($(this).valid()) { var jsonData = JSON.stringify({
- * "login": $('input[name="username"]').val(), "password":
- * $('input[name="password"]').val() });
- * 
- * $.post( "http://localhost/realestate/server/login.php", jsonData, function
- * (result) { console.log(result); }, "json" ); //event.preventDefault();
- * $('#notlogged').toggle(); $('#logged').toggle(); } } ); } );
- */
+
+$(document).ready(function () {
+	$('form#login').submit( function (event) {
+		$(this).validate();
+		if ($(this).valid()) {
+			var jsonData = JSON.stringify({
+				"login": $('input[name="username"]').val(),
+				"password": $('input[name="password"]').val()
+			});
+ 
+			//$.post( "http://localhost:8080/ImmoWeb/LoginServlet", jsonData); 
+			$('#notlogged').hide();
+			$('#logged').show();
+			$('#loginModal').modal('toggle');
+			event.preventDefault();
+		}
+	});
+});
+
 
 $(document).ready(function() {
-	$('form#login').submit(function() {
-		$('#notlogged').toggle();
-		$('#logged').toggle();
-	});
+	$('#notlogged').show();
+	$('#logged').hide();
 });
 
 /* CONTACT ADVERTISER */
@@ -350,9 +355,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$('form#contactAdvertiser').submit(function(event) {
 		$(this).validate();
-		if ($(this).valid()) {
-			console.log("Everything is super !");
-		} else {
+		if (!$(this).valid()) {
 			event.preventDefault();
 		}
 	});
