@@ -93,13 +93,13 @@
 										<c:choose>
 											<c:when test="${favorite eq null}">
 												<button type="button" class="btn btn-info" data-toggle="modal"
-													data-target="#addFavoriteModal">
+													data-target="#addFavoriteModal" id="favorite">
 													<i class="far fa-heart"></i> Ajouter aux Favoris
 												</button>
 											</c:when>
 											<c:when test="${favorite ne null}">
 												<button type="button" class="btn btn-danger" data-toggle="modal"
-													data-target="#removeFavoriteModal">
+													data-target="#removeFavoriteModal"id="favorite">
 													<i class="far fa-heart"></i> Enlever des Favoris
 												</button>
 											</c:when>

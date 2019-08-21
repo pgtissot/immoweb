@@ -76,7 +76,6 @@ public class DetailServlet extends HttpServlet {
 			
 //			String username = request.getParameter("username");
 //			request.setAttribute("favorite", favService.isFavAd(username, Integer.parseInt(id)));
-
 			String username = "pgthebest@blah.fr";
 			Favorite favorite = favService.getFavByAdId(username, Integer.parseInt(id));
 			request.setAttribute("favorite", favorite);

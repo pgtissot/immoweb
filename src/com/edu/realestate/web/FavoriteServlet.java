@@ -64,10 +64,6 @@ public class FavoriteServlet extends HttpServlet {
 			service.removeFavAds(Integer.parseInt(request.getParameter("favoriteId")));
 		}
 
-		request.setAttribute("advertisementId", request.getParameter("advertisementId"));
-		
-		getServletContext().getRequestDispatcher("/detail").forward(request, response);
-
 	}
 
 	/**

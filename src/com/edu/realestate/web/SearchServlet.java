@@ -61,8 +61,6 @@ public class SearchServlet extends HttpServlet {
 		SearchCriteria sc = null;
 		RealEstateType re = null;
 		
-		System.out.println(request.getParameter("sort"));
-
 		try {
 			sc = new SearchCriteria();
 			re = RealEstateType.valueOf(request.getParameter("realestate"));
@@ -120,8 +118,6 @@ public class SearchServlet extends HttpServlet {
 
 			if (request.getParameter("sort") != null)
 				sc.setSort(request.getParameter("sort"));
-			
-			System.out.println(sc);
 			
 			sc.setLimit(20);
 			

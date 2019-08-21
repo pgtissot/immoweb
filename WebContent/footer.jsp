@@ -25,7 +25,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 text-center copyright mediumfont">
-				<i class="far fa-copyright"> <%=LocalDate.now().getYear() %> Immo INC.</i>
+				<i class="far fa-copyright"> <%=LocalDate.now().getYear() %> GemIImmo INC.</i>
 			</div>
 		</div>
 	</div>

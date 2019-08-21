@@ -41,7 +41,7 @@
 								</div>
 								<div class="row">
 									<div class="col-lg">
-										<textarea class="form-control" name="comments" aria-label="comments" rows="10"
+										<textarea class="form-control" id="comments" name="comments" aria-label="comments" rows="10"
 											aria-describedby="message"></textarea>
 									</div>
 								</div>
