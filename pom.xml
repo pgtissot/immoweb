@@ -26,7 +26,15 @@
 			</plugin>
 		</plugins>
 	</build>
+	<properties>
+		<springframework.version>5.0.0.RELEASE</springframework.version>
+	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.edugroupe</groupId>
+			<artifactId>realestate</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -72,6 +80,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
 		</dependency>
 	</dependencies>
 </project>

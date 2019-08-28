@@ -1,3 +1,18 @@
+/*  HEADER DATA */
+
+$(document).ready(function() {
+	$.get("http://localhost:8080/ImmoMVC/adsData", function(response) {
+		var adsData = new Map();
+		for (var element in response) {
+			adsData.set(element, response[element]); 
+		}
+		$('#SaleCount').html(adsData.get("Sale") + " annonces de vente");
+		$('#RentCount').html(adsData.get("Rent") + " annonces de location");
+		$('#RealEstateCount').html(adsData.get("RealEstate") + " biens");
+	});
+});
+
+
 /* AD CLICK */
 
 $(document).ready(function() {
@@ -211,7 +226,7 @@ function cityAutoCompletion(cityInput) {
 		highlight : true,
 		minLength : 3,
 		source : function(query, process) {
-			var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
+			var url = "http://localhost:8080/ImmoWeb/city?input="
 					+ query;
 
 			$.get(url, function(response) {
@@ -229,7 +244,7 @@ function cityAutoCompletion(cityInput) {
 
 function setHiddenIdCity(cityInput) {
 	currentInput = cityInput.typeahead("getActive");
-	var url = "http://localhost:8080/ImmoWeb/CityServlet?input="
+	var url = "http://localhost:8080/ImmoWeb/city?input="
 			+ encodeURI(currentInput.name) + "&exact=1";
 	$.get(url, function(response) {
 		var completions = JSON.parse(response);
@@ -335,7 +350,7 @@ $(document).ready(function () {
 				"password": $('input[name="password"]').val()
 			});
  
-			//$.post( "http://localhost:8080/ImmoWeb/LoginServlet", jsonData); 
+			//$.post( "http://localhost:8080/ImmoWeb/login", jsonData); 
 			$('#notlogged').hide();
 			$('#logged').show();
 			$('#loginModal').modal('toggle');

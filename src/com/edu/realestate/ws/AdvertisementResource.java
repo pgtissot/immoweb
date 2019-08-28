@@ -32,7 +32,7 @@ public class AdvertisementResource {
 	@Path("{advertisementId}")
 	public String findAdvertisementById(@PathParam("advertisementId") String id) throws RealEstateException {
 	
-		Advertisement ad = adService.findAdvertisementById(id);
+		Advertisement ad = adService.findAdvertisementById(Integer.parseInt(id));
 		return ad.toString();
 		
 	}

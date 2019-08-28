@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.Advertisement;
@@ -17,7 +21,6 @@ import com.edu.realestate.model.RealEstateType;
 import com.edu.realestate.model.SearchCriteria;
 import com.edu.realestate.model.TransactionType;
 import com.edu.realestate.services.ReferenceService;
-import com.edu.realestate.services.ReferenceServiceImpl;
 
 /**
  * Servlet implementation class SearchServlet
@@ -41,7 +44,9 @@ public class SearchServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		service = new ReferenceServiceImpl();
+		ServletContext context = getServletContext();
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
+		service = ctx.getBean(ReferenceService.class);
 	}
 
 	/**
@@ -119,6 +124,9 @@ public class SearchServlet extends HttpServlet {
 			if (request.getParameter("sort") != null)
 				sc.setSort(request.getParameter("sort"));
 			
+			if (request.getParameter("query") != null)
+				sc.setQuery(request.getParameter("query"));
+
 			sc.setLimit(20);
 			
 		} catch (Exception e) {

@@ -94,6 +94,9 @@
 									<input type="text" class="form-control col-lg-5" name="rooms-min" placeholder="Pièces Min" value="<c:out value="${oldRequest.getParameter('rooms-min')}" />">
 									<input type="text" class="form-control col-lg-5 offset-lg-1" name="rooms-max" placeholder="Pièces Max" value="<c:out value="${oldRequest.getParameter('rooms-max')}" />">
 								</div>
+								<div class="row">
+									<input type="text" class="form-control col-lg-12" name="query" placeholder="Champ de recherche" value="<c:out value="${oldRequest.getParameter('query')}" />">
+								</div>
 								<div class="col-lg-12" data-option="options">
 									<div class="row">
 										<div class="col-lg-12 text-center optiontitle">
@@ -285,7 +288,14 @@
 												<div class="col-lg-12 text-center">
 													<div class="row">
 														<div class="col-lg-12 text-center">
-															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+															<c:choose>
+																<c:when test="${ad.pictures.size() == 0 }" >
+																	<img src="images/image-not-found.jpg" class="img-fluid">
+																</c:when>
+																<c:when test="${ad.pictures.size() > 0 }" >
+																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																</c:when>
+															</c:choose>
 														</div>
 													</div>
 													<div class="row" data-type="caption">

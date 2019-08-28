@@ -6,7 +6,7 @@
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>home.html</welcome-file>
 	</welcome-file-list>
-  	<servlet>
+	<servlet>
 		<servlet-name>Immo</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 		<init-param>
@@ -19,4 +19,16 @@
 		<servlet-name>Immo</servlet-name>
 		<url-pattern>/ws/*</url-pattern>
 	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>com.edu.realestate.config.WebConfig</param-value>
+	</context-param>
 </web-app>

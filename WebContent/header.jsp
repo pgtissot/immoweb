@@ -10,7 +10,7 @@
 
 <jsp:useBean id="adService" class="com.edu.realestate.services.AdvertisementServiceImpl" />
 
-<% Map<String,Integer> dbData = adService.getAdsData(); %>
+<% Map<String,Long> dbData = adService.getAdvertisementsData(); %>
 
 <header>
 	<div class="container-fluid">
@@ -19,7 +19,7 @@
 				<a href="home"><img src="images/logo.svg.png" class="img-fluid"></a>
 			</div>
 			<div class="col-lg-3 my-auto text-center">
-				<div class="row">
+ 				<div class="row">
 					<div class="col-lg-12 text-center"><%= dbData.get("Sale") %> annonces de vente</div>
 				</div>
 				<div class="row">

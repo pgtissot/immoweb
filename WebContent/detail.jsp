@@ -30,7 +30,6 @@
 
 	<!--  HEADER -->
 	<%@ include file="header.jsp" %>
-
 	<!-- NAVIGATION -->
 
 	<!-- CONTENT -->
@@ -49,8 +48,8 @@
 			</div>
 		</div>
 	</section>
-
-	<section>
+	
+   	<section>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-8">
@@ -58,7 +57,14 @@
 						<div class="row annoncedetail">
 							<div class="col-lg-7">
 								<div class="row">
-									<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+									<c:choose>
+										<c:when test="${ad.pictures.size() == 0 }" >
+											<img src="images/image-not-found.jpg" class="img-fluid">
+										</c:when>
+										<c:when test="${ad.pictures.size() > 0 }" >
+											<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+										</c:when>
+									</c:choose>
 								</div>
 							</div>
 							<div class="col-lg-5 text-center my-auto">
@@ -301,102 +307,30 @@
 								<div class="col-lg-12" data-option="detailOptionsEnergy">
 									<div class="row">
 										<c:choose>
-											<c:when test="${ad.realEstate.energyLevel eq '-'.charAt(0)}">
+											<c:when test="${ad.realEstate.energyLevel eq '-'}">
 												<div class="col-lg-6 energy-na">
 													<i class="far fa-lightbulb"></i> Consommation énergétique :
 													N/R
 												</div>
 											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'A'.charAt(0)}">
-												<div class="col-lg-6 energy-a">
+											<c:when test="${ad.realEstate.energyLevel ne '-'}">
+												<div class="col-lg-6 energy-<c:out value="${ad.realEstate.energyLevel.toLowerCase()}"/>">
 													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													A
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'B'.charAt(0)}">
-												<div class="col-lg-6 energy-b">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													B
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'C'.charAt(0)}">
-												<div class="col-lg-6 energy-c">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													C
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'D'.charAt(0)}">
-												<div class="col-lg-6 energy-d">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													D
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'E'.charAt(0)}">
-												<div class="col-lg-6 energy-e">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													E
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'F'.charAt(0)}">
-												<div class="col-lg-6 energy-f">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													F
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.energyLevel eq 'G'.charAt(0)}">
-												<div class="col-lg-6 energy-g">
-													<i class="far fa-lightbulb"></i> Consommation énergétique :
-													G
+													<c:out value="${ad.realEstate.energyLevel}"/>
 												</div>
 											</c:when>
 										</c:choose>
 										<c:choose>
-											<c:when test="${ad.realEstate.gasLevel eq '-'.charAt(0)}">
-												<div class="col-lg-6 energy-na">
+											<c:when test="${ad.realEstate.gasLevel eq '-'}">
+												<div class="col-lg-6 gas-na">
 													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
 													N/R
 												</div>
 											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'A'.charAt(0)}">
-												<div class="col-lg-6 energy-a">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													A
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'B'.charAt(0)}">
-												<div class="col-lg-6 energy-b">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													B
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'C'.charAt(0)}">
-												<div class="col-lg-6 energy-c">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													C
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'D'.charAt(0)}">
-												<div class="col-lg-6 energy-d">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													D
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'E'.charAt(0)}">
-												<div class="col-lg-6 energy-e">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													E
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'F'.charAt(0)}">
-												<div class="col-lg-6 energy-f">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													F
-												</div>
-											</c:when>
-											<c:when test="${ad.realEstate.gasLevel eq 'G'.charAt(0)}">
-												<div class="col-lg-6 energy-g">
-													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
-													G
+											<c:when test="${ad.realEstate.gasLevel ne '-'}">
+												<div class="col-lg-6 gas-<c:out value="${ad.realEstate.gasLevel.toLowerCase()}"/>">
+													<i class="far fa-lightbulb"></i> Consommation énergétique :
+													<c:out value="${ad.realEstate.gasLevel}"/>
 												</div>
 											</c:when>
 										</c:choose>
@@ -406,7 +340,7 @@
 						</section>
 					</c:if>
 
-					<section>
+ 					<section>
 						<div class="row">
 							<div class="col-lg-12 text-center sectiontitle">
 								Commerces à proximité sur Yelp 
@@ -468,7 +402,7 @@
 						</c:forEach>
 
 					</section>
-
+ 
 				<!-- AUTRES ANNONCES -->
 
 				</div>
@@ -492,7 +426,14 @@
 														<div class="col-lg-12 text-center">
 															<div class="row">
 																<div class="col-lg-12 text-center">
-																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																	<c:choose>
+																		<c:when test="${ad.pictures.size() == 0 }" >
+																			<img src="images/image-not-found.jpg" class="img-fluid">
+																		</c:when>
+																		<c:when test="${ad.pictures.size() > 0 }" >
+																			<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																		</c:when>
+																	</c:choose>
 																</div>
 															</div>
 															<div class="row" data-type="caption">
@@ -532,8 +473,8 @@
 			</div>
 		</div>
 	</section>
-
-	<aside>
+ 
+ 	<aside>
 	</aside>
 
 	<!-- MODAL DE CONTACT DU VENDEUR -->

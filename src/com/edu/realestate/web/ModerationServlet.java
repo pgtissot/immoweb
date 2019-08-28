@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.edu.realestate.model.AdStatus;
 import com.edu.realestate.model.Advertisement;
 import com.edu.realestate.services.AdvertisementService;
 
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet("/home")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/moderation")
+public class ModerationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private AdvertisementService service;
@@ -29,7 +30,7 @@ public class IndexServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IndexServlet() {
+	public ModerationServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -59,14 +60,20 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			List<Advertisement> lads = service.findLatestAds(8);
-			request.setAttribute("listAds", lads);
+			if (request.getParameter("refusedComment") == null)
+				service.validateAdvertisement(Integer.parseInt(request.getParameter("advertisementId")));
+			else
+				service.refuseAdvertisement(Integer.parseInt(request.getParameter("advertisementId")), request.getParameter("refusedComment"));
+
+			List<Advertisement> pendingAds = null;
+			pendingAds = service.findAdvertisementsByStatus(AdStatus.Pending);
+			request.setAttribute("listAds", pendingAds);
 		} catch (Exception e) {
 			response.sendError(500, "Problème inattendu côté serveur");
-			e.printStackTrace();
 		}
 
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/moderation.jsp").forward(request, response);
+
 	}
 
 	/**
