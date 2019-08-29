@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="shortcut icon" href="./images/favicon.ico">
 <link
 	href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap"
 	rel="stylesheet">
@@ -22,18 +21,24 @@
 
 <body>
 	<!-- ENTETE HEADER -->
+
 	<%@ include file="header.jsp"%>
+
 
 	<!-- NAV -->
 	<div id="container">
-
+		<c:set value="${requestScope.user}" var="user" />
 		<!-- CONTENT -->
 		<div id="welcome">
 			<section class="shadow">
 				<div class="container-fluid" id="searchheader">
 					<div class="row">
-						<div class="col-lg-12 my-auto bigfont text-center">Bonjour
-							[PRENOM], voici ta page personnelle!</div>
+
+						<div class="col-lg-12 my-auto bigfont text-center">
+							Bonjour
+							<c:out value="${user.firstName}" />
+							, voici ta page personnelle!
+						</div>
 					</div>
 				</div>
 			</section>
@@ -58,24 +63,28 @@
 
 										<div class="row">
 											<div class="col-lg-1">
-												<span>Mme/M</span>
+												<span> <c:out value="${user.title}" />
+												</span>
 											</div>
 											<div class="col-lg-2">
-												<span>Ton nom</span>
+												<span> <c:out value="${user.lastName}" />
+												</span>
 											</div>
 											<div class="col-lg-2">
-												<span>Ton prenom:</span>
+												<span> <c:out value="${user.firstName}" />
+												</span>
 											</div>
 											<div class="col-lg-3">
-												<span>Email@youremail.com</label>
+												<span> <c:out value="${user.username}" />
+												</span>
 											</div>
 											<div class="col-lg-2">
-												<span>123456789</span>
+												<span><c:out value="${user.phone}" /></span>
 											</div>
 											<div class="col-lg-2 text-right">
-												<button type="button" class="btn btn-info" data-toggle="modal" data-target="#dataModal">
-														 Modification des données
-												</button>
+												<button type="button" class="btn btn-info"
+													data-toggle="modal" data-target="#dataModal">
+													Modification mot de passe</button>
 											</div>
 
 										</div>
@@ -86,7 +95,7 @@
 
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 	</div>
@@ -107,124 +116,76 @@
 						<div class="dropdown text-right">
 							<button class="btn btn-info dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">Trier </button>
+								aria-haspopup="true" aria-expanded="false">Trier</button>
 							<div class="dropdown-menu" aria-labelledby="searchSort">
-							<a class="dropdown-item" href="#">Prix / croissant</a>
-							<a class="dropdown-item" href="#">Prix / décroissant</a>
-							<a class="dropdown-item" href="#">Surface / croissant</a>
-							<a class="dropdown-item" href="#">Surface / décroissant</a>
-						</div>
+								<a class="dropdown-item" href="#">Prix / croissant</a> <a
+									class="dropdown-item" href="#">Prix / décroissant</a> <a
+									class="dropdown-item" href="#">Surface / croissant</a> <a
+									class="dropdown-item" href="#">Surface / décroissant</a>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-lg-4 text-center">
-						<article>
-							<div class="row">
-								<div class="col-lg-12 text-center">
-									<a href="detail.jsp">
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<img src="images/diapo3.jpg" class="img-fluid">
-											</div>
-										</div>
+					
+					<c:forEach items="${requestScope.listFavs}" var="fav">
+						<c:set value="${fav.ad}" var="ad" />
+						<div class="col-lg-4 text-center">
+							<article>
+								<form method="POST" action="detail" id="${ad.id}">
+									<a role="button" href="#" id="${ad.id}">
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="row">
-													<div class="col-lg-4 text-center my-auto"
+													<div class="col-lg-12 text-center">
+														<img src="images/diapo1.jpg" class="img-fluid">
+													</div>
+												</div>
+												<div class="row" data-type="caption">
+													<div class="col-lg-6 align-left my-auto"
 														data-type="realestate">
-														<div class="text-center">Maison 250m²</div>
+														<div>
+															<c:out value="${ad.transactionTypeToFrench()}" />
+														</div>
+														<div>
+															<c:out value="${ad.realEstate.toFrench()}" />
+															<div></div>
+															<c:out value="${ad.realEstate.area}" />
+															m²
+														</div>
+														<div>
+															<c:out value="${ad.realEstate.city.name}" />
+														</div>
 													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="city">
-														<div class="text-center">Perpignan</div>
-													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="price">
-														<div class="text-center">3500000 €</div>
+													<div class="col-lg-6 my-auto" data-type="price">
+														<div>
+															<c:out value="${ad.realEstate.price}" />
+															&euro;
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</a>
-								</div>
-							</div>
-						</article>
-					</div>
-					<div class="col-lg-4 text-center">
-						<article>
-							<div class="row">
-								<div class="col-lg-12 text-center">
-									<a href="detail.jsp">
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<img src="images/diapo4.jpg" class="img-fluid">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<div class="row">
-													<div class="col-lg-4 text-center my-auto"
-														data-type="realestate">
-														<div class="text-center">Appartement 75m²</div>
-													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="city">
-														<div class="text-center">Toulouse</div>
-													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="price">
-														<div class="text-center">200000 €</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-						</article>
-					</div>
-					<div class="col-lg-4 text-center">
-						<article>
-							<div class="row">
-								<div class="col-lg-12 text-center">
-									<a href="detail.jsp">
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<img src="images/diapo3.jpg" class="img-fluid">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-12 text-center">
-												<div class="row">
-													<div class="col-lg-4 text-center my-auto"
-														data-type="realestate">
-														<div class="text-center">Maison 250m²</div>
-													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="city">
-														<div class="text-center">Perpignan</div>
-													</div>
-													<div class="col-lg-4 text-center my-auto" data-type="price">
-														<div class="text-center">3500000 €</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-						</article>
-					</div>
+									</a> <input type="hidden" id="advertisementId"
+										name="advertisementId" value="<c:out value="${ad.id}" />">
+								</form>
+							</article>
+
+						</div>
+					</c:forEach>
+
+
+
+
+
 				</div>
-
-
-
 			</div>
-		</div>
-
-
 	</section>
 	</div>
 	<!-- FOOTER -->
-<%@ include file="dataModify-modal.html" %>	
-<%@ include file="footer.jsp"%>
+	<%@ include file="dataModify-modal.html"%>
+	<%@ include file="footer.jsp"%>
 </body>
 
 </html>
