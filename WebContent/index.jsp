@@ -8,6 +8,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Accueil</title>
+<link rel="shortcut icon" href="./images/favicon.ico">
 <link
 	href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap"
 	rel="stylesheet">
@@ -80,7 +81,7 @@
 										<div class="col-lg-3 offset-lg-1">
 											<div class="row">
 												<input type="text" class="form-control" name="city" id="city" placeholder="Ville">
-													<input type="hidden" name="cityId">
+													<input type="hidden" name="cityId" id="cityId">
 											</div>
 										</div>
 										<div class="col-lg-3 offset-lg-1">
@@ -103,6 +104,13 @@
 											</div>
 										</div>
 									</div>
+									<div class="row searchrow">
+										<div class="col-lg-12">
+											<div class="row">
+												<input type="text" class="form-control" name="query" placeholder="Champ de recherche (titre, description...)">
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-2 my-auto text-center">
 									<input class="btn btn-info" type="submit" value="Rechercher">
@@ -122,7 +130,6 @@
 				<div class="col-lg-12 text-center sectiontitle">Les dernières annonces parues</div>
 			</div>
 
-
 			<div class="row data-container">
 
 				<c:forEach items="${requestScope.listAds}" var="ad">
@@ -135,7 +142,14 @@
 										<div class="col-lg-12 text-center">
 											<div class="row">
 												<div class="col-lg-12 text-center">
-													<img src="images/diapo1.jpg" class="img-fluid">
+													<c:choose>
+														<c:when test="${ad.pictures.size() == 0 }" >
+															<img src="images/image-not-found.jpg" class="img-fluid">
+														</c:when>
+														<c:when test="${ad.pictures.size() > 0 }" >
+															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+														</c:when>
+													</c:choose>
 												</div>
 											</div>
 											<div class="row" data-type="caption">
@@ -155,7 +169,7 @@
 												</div>
 												<div class="col-lg-6 my-auto" data-type="price">
 													<div>
-														<c:out value="${ad.realEstate.price}" /> &euro;
+														<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 													</div>
 												</div>
 											</div>

@@ -1,8 +1,6 @@
 package com.edu.realestate.web;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,22 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.edu.realestate.model.Advertisement;
-import com.edu.realestate.services.AdvertisementService;
+import com.edu.realestate.services.FavoriteService;
 
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet("/home")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/favorite")
+public class FavoriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AdvertisementService service;
+	private FavoriteService service;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IndexServlet() {
+	public FavoriteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 		super.init(config);
 		ServletContext context = getServletContext();
 		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
-		service = ctx.getBean(AdvertisementService.class);
+		service = ctx.getBean(FavoriteService.class);
 	}
 
 	/**
@@ -58,15 +55,20 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		try {
-			List<Advertisement> lads = service.findLatestAds(8);
-			request.setAttribute("listAds", lads);
-		} catch (Exception e) {
-			response.sendError(500, "Problème inattendu côté serveur");
-			e.printStackTrace();
+//		service.addFavAds(request.getParameter("username"),
+//					Integer.parseInt(request.getParameter("advertisementId")),
+//					Integer.parseInt(request.getParameter("priority")),
+//					request.getParameter("comments"));
+
+		if (request.getParameter("favoriteId") == null) {
+			service.addFavAds("pgthebest@blah.fr",
+					Integer.parseInt(request.getParameter("advertisementId")),
+					Integer.parseInt(request.getParameter("priority")),
+					request.getParameter("comments"));
+		} else {
+			service.removeFavAd(Integer.parseInt(request.getParameter("favoriteId")));
 		}
 
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**

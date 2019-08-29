@@ -5,22 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.edu.realestate.exceptions.RealEstateException;
 import com.edu.realestate.model.City;
 import com.edu.realestate.services.ReferenceService;
-import com.edu.realestate.services.ReferenceServiceImpl;
 import com.google.gson.Gson;
 
 /**
  * Servlet implementation class City
  */
-@WebServlet("/CityServlet")
+@WebServlet("/city")
 public class CityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +42,9 @@ public class CityServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		service = new ReferenceServiceImpl();
+		ServletContext context = getServletContext();
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
+		service = ctx.getBean(ReferenceService.class);
 	}
 
 	/**
@@ -57,7 +62,8 @@ public class CityServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
-			list = service.findCitiesByName(request.getParameter("input"));
+			boolean exact = (request.getParameter("exact") != null && request.getParameter("exact").equals("1"));
+			list = service.findCitiesByName(request.getParameter("input"), exact);
 			response.getWriter().append(new Gson().toJson(list));
 		} catch (RealEstateException e) {
 			response.sendError(500, "Problème inattendu côté serveur");

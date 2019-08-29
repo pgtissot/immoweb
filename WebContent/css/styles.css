@@ -1,6 +1,6 @@
 /* GENERAL */
 
-/**[class^="col-"] {
+/*[class^="col-"] {
 	border-width: 1px;
 	border-style: solid;
 	background-color: lightgray;
@@ -130,11 +130,6 @@ footer div {
 	padding: 20px;
 }
 
-#logged {
-	display: none;
-}
-
-
 
 /* INDEX PAGE */
 
@@ -231,6 +226,10 @@ div[data-type="detail-realestate"] {
 	padding-bottom : 20px;
 }
 
+div[data-type="detail-city"] {
+	padding-top : 20px;
+}
+
 div[data-type="detail-price"] {
 	padding : 20px;
 }
@@ -288,6 +287,10 @@ div#favoris {
 
 .gas-na {
 	background-color: none;
+	border : solid;
+	border-width : 2px;
+	border-radius: 10px;
+	
 }
 
 .gas-a {
@@ -331,6 +334,9 @@ div#favoris {
 	margin: 20px;
 }
 
+.updateFavoriteButton {
+	margin-top: 20px;
+}
 
 
 /* REGISTER */
@@ -339,6 +345,19 @@ span#hidemoderator {
 	display: none;
 }
 
+#registrationForm {
+	display: none;
+	margin-top: 25px;
+	}
+#loginForm {
+	margin-top: 25px;
+	}
+
+#loginForm .btn-primary {
+	margin-top: 15px;
+	
+	
+}
 
 
 /* MODERATION */

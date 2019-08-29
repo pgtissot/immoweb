@@ -12,13 +12,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Résultats de la recherche</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.css" />
 	<link rel="stylesheet" href="fontawesome/css/all.css" />
 	<link rel="stylesheet" href="css/styles.css" />
 	<script src="jquery/jquery-3.4.1.js"></script>
-	<script src="bootstrap-4.3.1/js/bootstrap.bundle.js"></script>
-	<script src="bootstrap-4.3.1/js/bootstrap.js"></script>
+<!-- 	<script src="bootstrap-4.3.1/js/bootstrap.bundle.js"></script>
+ -->	<script src="bootstrap-4.3.1/js/bootstrap.js"></script>
 	<script src="typeahead/bootstrap3-typeahead.js"></script>
 	<script src="js/codes.js"></script>
 
@@ -31,30 +32,17 @@
 	
 	<!-- NAVIGATION -->
 
+	<c:set var="oldRequest" value="${requestScope.searchRequest}" />
+	
 	<!-- DROP DOWNS -->
 	<section class="shadow">
 		<div class="container-fluid" id="searchheader">
-			<div class="row">
-				<div class="col-lg-10 my-auto bigfont">
-				Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultats
-				</div>
-				<div class="col-lg-2 text-center">
-					<div class="dropdown">
-						<button class="btn btn-info dropdown-toggle" type="button" id="searchSort"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Trier
-						</button>
-						<div class="dropdown-menu" aria-labelledby="searchSort">
-							<a class="dropdown-item" href="#">Prix / croissant</a>
-							<a class="dropdown-item" href="#">Prix / décroissant</a>
-							<a class="dropdown-item" href="#">Surface / croissant</a>
-							<a class="dropdown-item" href="#">Surface / décroissant</a>
-						</div>
-					</div>
-				</div>
+			<div class="col-lg-12 my-auto bigfont">
+			Recherche de tous les biens disponibles : <c:out value="${requestScope.countAds}" /> résultat<c:if test="${requestScope.countAds > 1}">s</c:if> 
 			</div>
 		</div>
 	</section>
+		
 
 	<!-- FILTRES & ANNONCES  -->
 	<section>
@@ -68,50 +56,46 @@
 									Filtres
 								</div>
 							</div>
-							<form action="resultat.jsp" method="POST" data-form="filters">
+							<form action="search" method="POST" data-form="filters">
 								<div class="row">
 									<div class="col-lg-12 text-center">
 										<div class="btn-group btn-group-toggle" data-toggle="buttons">
 											<label class="btn btn-info active">
-												<input type="radio" name="action" id="acheter" autocomplete="off"
-													checked>Acheter
+												<input type="radio" name="transactionType" value="Sale" autocomplete="off" checked>Acheter
 											</label>
 											<label class="btn btn-info">
-												<input type="radio" name="action" id="louer" autocomplete="off">Louer
+												<input type="radio" name="transactionType" value="Rent" autocomplete="off">Louer
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-									<select class="form-control col-lg-12" id="realestate"></select>
+									<select class="form-control col-lg-12" name="realestate" id="realestate"></select>
+									<input type="hidden" name="oldre" id="oldre" value="<c:out value="${oldRequest.getParameter('realestate')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-12" id="city" placeholder="Ville">
-									<input type="hidden" id="cityid">
+									<input type="text" class="form-control col-lg-8" name="city" id="city" placeholder="Ville" value="<c:out value="${oldRequest.getParameter('city')}" />">
+									<input type="hidden" name="cityId" id="cityId">
+									<input type="text" class="form-control col-lg-3 offset-lg-1" name="distance" placeholder="Dist.(km)" value="<c:out value="${oldRequest.getParameter('distance')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" id="price-min"
-										placeholder="Prix Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="price-max"
-										placeholder="Prix Max">
+									<input type="text" class="form-control col-lg-5" name="price-min" placeholder="Prix Min" value="<c:out value="${oldRequest.getParameter('price-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="price-max" placeholder="Prix Max"value="<c:out value="${oldRequest.getParameter('price-max')}" />">
 								</div>
 								<div class="row">
-									<input type="text" class="form-control col-lg-5" id="surface-min"
-										placeholder="Surface Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="surface-max"
-										placeholder="Surface Max">
+									<input type="text" class="form-control col-lg-5" name="area-min" placeholder="Surf. Min" value="<c:out value="${oldRequest.getParameter('area-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="area-max" placeholder="Surf. Max" value="<c:out value="${oldRequest.getParameter('area-max')}" />">
 								</div>
 								<div class="row" data-search="land">
-									<input type="text" class="form-control col-lg-5" id="land-min"
-										placeholder="Terrain Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="land-max"
-										placeholder="Terrain Max">
+									<input type="text" class="form-control col-lg-5" name="land-min" placeholder="Terrain Min" value="<c:out value="${oldRequest.getParameter('land-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="land-max" placeholder="Terrain Max" value="<c:out value="${oldRequest.getParameter('land-max')}" />">
 								</div>
 								<div class="row" data-search="rooms">
-									<input type="text" class="form-control col-lg-5" id="rooms-min"
-										placeholder="Pièces Min">
-									<input type="text" class="form-control col-lg-5 offset-lg-1" id="rooms-max"
-										placeholder="Pièces Max">
+									<input type="text" class="form-control col-lg-5" name="rooms-min" placeholder="Pièces Min" value="<c:out value="${oldRequest.getParameter('rooms-min')}" />">
+									<input type="text" class="form-control col-lg-5 offset-lg-1" name="rooms-max" placeholder="Pièces Max" value="<c:out value="${oldRequest.getParameter('rooms-max')}" />">
+								</div>
+								<div class="row">
+									<input type="text" class="form-control col-lg-12" name="query" placeholder="Champ de recherche" value="<c:out value="${oldRequest.getParameter('query')}" />">
 								</div>
 								<div class="col-lg-12" data-option="options">
 									<div class="row">
@@ -123,9 +107,10 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
-															class="far fa-bell"></i> Alarme
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('alarm').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="alarm" autocomplete="off"><i
+															class="far fa-bell"></i>
+															Alarme
 													</label>
 												</div>
 											</div>
@@ -133,8 +118,8 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('cellar').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="cellar"autocomplete="off"><i
 															class="fas fa-wine-bottle"></i>
 														Cave
 													</label>
@@ -144,8 +129,8 @@
 										<div class="row">
 											<div class="col-lg-12 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('swimmingPool').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="swimmingPool" autocomplete="off"><i
 															class="fas fa-swimming-pool"></i>
 														Piscine
 													</label>
@@ -157,16 +142,16 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('alarm').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="alarm" autocomplete="off"><i
 															class="far fa-bell"></i> Alarme
 													</label>
 												</div>
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('elevator').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="elevator" autocomplete="off"><i
 															class="far fa-building"></i> Ascenseur
 													</label>
 												</div>
@@ -175,16 +160,16 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('balcony').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="balcony" autocomplete="off"><i
 															class="fas fa-seedling"></i> Balcon
 													</label>
 												</div>
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('digicode').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="digicode" autocomplete="off"><i
 															class="fas fa-lock"></i>
 														Digicode
 													</label>
@@ -194,8 +179,8 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('garage').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="garage" autocomplete="off"><i
 															class="fas fa-car"></i>
 														Garage
 													</label>
@@ -203,8 +188,8 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('intercom').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="intercom" autocomplete="off"><i
 															class="fab fa-intercom"></i> Intercom
 													</label>
 												</div>
@@ -213,8 +198,8 @@
 										<div class="row">
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('parking').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="parking" autocomplete="off"><i
 															class="fas fa-parking"></i>
 														Parking
 													</label>
@@ -222,8 +207,8 @@
 											</div>
 											<div class="col-lg-6 text-center">
 												<div class="btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-info">
-														<input type="checkbox" autocomplete="off"><i
+													<label class="btn btn-info <c:if test="${oldRequest.getParameter('terrace').equals('on')}">active</c:if> ">
+														<input type="checkbox" name="terrace" autocomplete="off"><i
 															class="fas fa-fan"></i>
 														Terrasse
 													</label>
@@ -238,7 +223,7 @@
 									</div>
 									<div class="col-lg-12" data-option="optionsEnergy">
 										<div class="row">
-											<select class="form-control col-lg-12" id="energy-level">
+											<select class="form-control col-lg-12" name="energyLevel" id="energy-level">
 												<option disabled selected>Énergie (kWh/m²/an)</option>
 												<option class="energy-a" value="A">A (jusqu'à 50)</option>
 												<option class="energy-b" value="B">A-B (jusqu'à 90)</option>
@@ -248,9 +233,10 @@
 												<option class="energy-f" value="F">A-F (jusqu'à 450)</option>
 												<option class="energy-g" value="G">A-G (Tous)</option>
 											</select>
+											<input type="hidden" name="oldenergy" id="oldenergy" value="<c:out value="${oldRequest.getParameter('energyLevel')}" />">
 										</div>
 										<div class="row">
-											<select class="form-control col-lg-12" id="gas-level">
+											<select class="form-control col-lg-12" name="gasLevel" id="gas-level">
 												<option disabled selected>GES (Kg éqCO2/m²/an)</option>
 												<option class="gas-a" value="A">A (jusqu'à 5)</option>
 												<option class="gas-b" value="B">A-B (jusqu'à 10)</option>
@@ -260,7 +246,23 @@
 												<option class="gas-f" value="F">A-F (jusqu'à 80)</option>
 												<option class="gas-g" value="G">A-G (Tous)</option>
 											</select>
+											<input type="hidden" name="oldgas" id="oldgas" value="<c:out value="${oldRequest.getParameter('gasLevel')}" />">
 										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 text-center optiontitle">
+										Tri
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 text-center">
+										<select class="form-control" name="sort">
+											<option value="price ASC">Prix / croissant</option>
+											<option value="price DESC">Prix / décroissant</option>
+											<option value="area ASC">Surface / croissant</option>
+											<option value="area DESC">Surface / décroissant</option>
+										</select>
 									</div>
 								</div>
 								<div class="row">
@@ -286,7 +288,14 @@
 												<div class="col-lg-12 text-center">
 													<div class="row">
 														<div class="col-lg-12 text-center">
-															<img src="images/diapo1.jpg" class="img-fluid">
+															<c:choose>
+																<c:when test="${ad.pictures.size() == 0 }" >
+																	<img src="images/image-not-found.jpg" class="img-fluid">
+																</c:when>
+																<c:when test="${ad.pictures.size() > 0 }" >
+																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																</c:when>
+															</c:choose>
 														</div>
 													</div>
 													<div class="row" data-type="caption">
@@ -306,7 +315,7 @@
 														</div>
 														<div class="col-lg-6 my-auto" data-type="price">
 															<div>
-																<c:out value="${ad.realEstate.price}" /> &euro;
+																<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 															</div>
 														</div>
 													</div>

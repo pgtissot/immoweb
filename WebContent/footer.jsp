@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page errorPage="erreur.jsp"%>
 
+<%@ page import="java.time.LocalDate"%>
+
 <footer>
 	<div class="container-fluid mediumfont">
 		<div class="row">
@@ -23,7 +25,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 text-center copyright mediumfont">
-				<i class="far fa-copyright"> 2019 Le Meilleur site du monde.</i>
+				<i class="far fa-copyright"> <%=LocalDate.now().getYear() %> GemIImmo INC.</i>
 			</div>
 		</div>
 	</div>
