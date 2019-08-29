@@ -1,0 +1,89 @@
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog"
+	aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="row" id="modData">
+				<div class="col-lg-12">
+
+				
+					
+				
+						<section class="shadow">
+								<div class="col-lg-12">
+						<div class="row">
+							<div class="col-lg-12 closeX">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true"><i class="far fa-window-close"></i></span>
+								</button>
+							</div>
+						</div>	
+							<form name="modificationData" action="compte" method="POST"
+								class="was-validated">
+								<div class="col-lg-12">
+									<div class="text-center sectiontitle">
+										<i class="far fa-edit"></i> Formulaire de modification de
+										mot de passe
+									</div>
+								</div>
+
+								
+
+								<div class="row">
+									<div class="col-lg-12 form-group">
+										<label>Ancien mot de passe:</label> 
+										
+										<input class="form-control"
+											type="password" name="password" placeholder="Password"
+											required minlength="5">
+										<div class="valid-feedback">Valide.</div>
+										<div class="invalid-feedback">Au moins 8 caractères dont
+											une lettre majuscule, une minuscule et un chiffre.</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 form-group">
+										<label>Nouveau mot de passe:</label> 
+										<input class="form-control"
+											type="password" name="newPassword" placeholder="Password"
+											required minlength="5">
+										<div class="valid-feedback">Valide.</div>
+										<div class="invalid-feedback">Au moins 8 caractères dont
+											une lettre majuscule, une minuscule et un chiffre.</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-12 form-group">
+										<label>Retapez le nouveau mot de passe:</label> <input
+											class="form-control" type="password" name="newPassword"
+											placeholder="Password" required minlength="5">
+										<div class="valid-feedback">Valide.</div>
+										<div class="invalid-feedback">Au moins 8 caractères dont
+											une lettre majuscule, une minuscule et un chiffre.</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 form-group">
+										<label class=" ml-2">Montrer les mots de passe:</label><i
+											class="mpass fas fa-eye float-right mr-2 mt-1"> </i>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12 form-group">
+										<input class="btn btn-primary col-lg-6 offset-lg-3 mt-1"
+											type="submit" value="Enregistre">
+									</div>
+
+								</div>
+
+
+							</form>
+						</section>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
