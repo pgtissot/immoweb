@@ -118,6 +118,18 @@
 							</div>
 						</div>
 					</form>
+					<form action="adNumber" method="POST" id="searchform">
+						<div class="searchmenu">
+							<div class="row">
+								<div class="col-lg-10 my-auto text-center">
+									<input type="text" class="form-control" name="adNumber" id="adNumber" placeholder="Numéro de l'annonce">
+								</div>
+								<div class="col-lg-2 my-auto text-center">
+									<input class="btn btn-info" type="submit" value="Afficher">
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -147,7 +159,7 @@
 															<img src="images/image-not-found.jpg" class="img-fluid">
 														</c:when>
 														<c:when test="${ad.pictures.size() > 0 }" >
-															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid imgthumb">
 														</c:when>
 													</c:choose>
 												</div>

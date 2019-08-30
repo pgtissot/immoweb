@@ -120,10 +120,10 @@ function addRealEstatesToSelect() {
 	var presetRealEstate = $('#oldre').val();
 	setTimeout(function () {
 		$('#realestate option[value="'+presetRealEstate+'"]').prop('selected', true);
-	}, 10);
+	}, 100);
 	setTimeout(function () {
 		realEstateToggleOptions();
-	}, 10);
+	}, 100);
 
 }
 
@@ -133,7 +133,7 @@ function realEstateToggleOptions() {
 	var optA = (value == "Apartment" ? "block" : "none");
 	var optM = (value == "House" ? "block" : "none");
 	var optL = (value == "House" ? "" : "none");
-	var optF = (value == "Apartment" ? "block" : "none");
+	var optF = (value == "Apartment" ? "" : "none");
 	var optR = (value == "House" || value == "Apartment" ? "" : "none");
 
 	$('div[data-option="options"]').css("display", opts);
@@ -142,7 +142,6 @@ function realEstateToggleOptions() {
 	$('div[data-search="land"]').css("display", optL);
 	$('div[data-search="floor"]').css("display", optF);
 	$('div[data-search="rooms"]').css("display", optR);
-	$('div[data-search="floor"]').css("display", optF);
 }
 
 $(document).ready(addRealEstatesToSelect);
@@ -272,6 +271,45 @@ $(document).ready(function() {
 });
 
 
+/* ADNUMBER AUTOCOMPLETION */
+
+function adNumberAutoCompletion(adNumberInput) {
+	adNumberInput.typeahead({
+		hint : true,
+		highlight : true,
+		minLength : 4,
+		source : function(query, process) {
+			var url = "http://localhost:8080/ImmoWeb/adNumber?input="
+					+ query;
+
+			$.get(url, function(response) {
+				var completions = JSON.parse(response);
+				var adNumbers = new Array();
+				completions.forEach(function(e) {
+					adNumbers.push(e);
+				});
+				return process(adNumbers);
+			})
+
+		},
+	});
+}
+
+$(document).ready(function() {
+	function adNumberInput() {
+		adNumberAutoCompletion($('#adNumber'))
+	}
+	;
+	$('#adNumber').keyup(adNumberInput);
+});
+
+$(document).ready(function() {
+	$('#adNumber').change(adNumberInput);
+});
+
+
+
+
 /* USER_TYPE FUNCTIONS */
 
 function addUserTypesToSelect() {
@@ -345,25 +383,20 @@ $(document).ready(function () {
 	$('form#login').submit( function (event) {
 		$(this).validate();
 		if ($(this).valid()) {
-			var jsonData = JSON.stringify({
-				"login": $('input[name="username"]').val(),
-				"password": $('input[name="password"]').val()
-			});
- 
-			//$.post( "http://localhost:8080/ImmoWeb/login", jsonData); 
+			$.post( "http://localhost:8080/ImmoWeb/login", $('form#login').serialize()); 
 			$('#notlogged').hide();
 			$('#logged').show();
 			$('#loginModal').modal('toggle');
-			event.preventDefault();
+//			event.preventDefault();
 		}
 	});
 });
 
 
-$(document).ready(function() {
-	$('#notlogged').show();
-	$('#logged').hide();
-});
+//$(document).ready(function() {
+//	$('#notlogged').show();
+//	$('#logged').hide();
+//});
 
 /* CONTACT ADVERTISER */
 

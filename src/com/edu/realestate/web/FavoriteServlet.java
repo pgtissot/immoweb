@@ -55,13 +55,9 @@ public class FavoriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		service.addFavAds(request.getParameter("username"),
-//					Integer.parseInt(request.getParameter("advertisementId")),
-//					Integer.parseInt(request.getParameter("priority")),
-//					request.getParameter("comments"));
-
 		if (request.getParameter("favoriteId") == null) {
-			service.addFavAds("pgthebest@blah.fr",
+			service.addFavAds(
+					(String)request.getSession().getAttribute("username"),
 					Integer.parseInt(request.getParameter("advertisementId")),
 					Integer.parseInt(request.getParameter("priority")),
 					request.getParameter("comments"));

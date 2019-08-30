@@ -1,4 +1,5 @@
 package com.edu.realestate.web;
+
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -13,9 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.edu.realestate.exceptions.AuthenticationException;
-import com.edu.realestate.model.User;
 import com.edu.realestate.services.UserService;
-import com.edu.realestate.services.UserServiceImpl;
 
 /**
  * Servlet implementation class LoginServlet
@@ -42,10 +41,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		ServletContext context = getServletContext();
-//		WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(context);
-//		us = wac.getBean(UserService.class);
-		us = new UserServiceImpl();
+		ServletContext context = getServletContext();
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
+		us = ctx.getBean(UserService.class);
 	}
 
 	/**
@@ -62,14 +60,10 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String ru = request.getParameter("username");
 			String rp = request.getParameter("password");
-			
 			try {
-				User user = us.authenticate(ru, rp);
-				
-				
+				us.authenticate(ru, rp);
 				request.getSession().setAttribute("username", ru);
-				
-				getServletContext().getRequestDispatcher("/compte.jsp").forward(request, response);		
+				getServletContext().getRequestDispatcher("/compte").forward(request, response);
 				
 			} catch (AuthenticationException e) {
 				// TODO Auto-generated catch block
@@ -82,7 +76,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doGet(request, response);
 	}
 

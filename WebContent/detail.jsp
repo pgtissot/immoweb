@@ -307,13 +307,13 @@
 								<div class="col-lg-12" data-option="detailOptionsEnergy">
 									<div class="row">
 										<c:choose>
-											<c:when test="${ad.realEstate.energyLevel eq '-'}">
+											<c:when test="${ad.realEstate.energyLevel eq null}">
 												<div class="col-lg-6 energy-na">
 													<i class="far fa-lightbulb"></i> Consommation énergétique :
 													N/R
 												</div>
 											</c:when>
-											<c:when test="${ad.realEstate.energyLevel ne '-'}">
+											<c:when test="${ad.realEstate.energyLevel ne null}">
 												<div class="col-lg-6 energy-<c:out value="${ad.realEstate.energyLevel.toLowerCase()}"/>">
 													<i class="far fa-lightbulb"></i> Consommation énergétique :
 													<c:out value="${ad.realEstate.energyLevel}"/>
@@ -321,13 +321,13 @@
 											</c:when>
 										</c:choose>
 										<c:choose>
-											<c:when test="${ad.realEstate.gasLevel eq '-'}">
+											<c:when test="${ad.realEstate.gasLevel eq null}">
 												<div class="col-lg-6 gas-na">
 													<i class="fas fa-burn"></i> Émission de gaz à effet de serre :
 													N/R
 												</div>
 											</c:when>
-											<c:when test="${ad.realEstate.gasLevel ne '-'}">
+											<c:when test="${ad.realEstate.gasLevel ne null}">
 												<div class="col-lg-6 gas-<c:out value="${ad.realEstate.gasLevel.toLowerCase()}"/>">
 													<i class="far fa-lightbulb"></i> Consommation énergétique :
 													<c:out value="${ad.realEstate.gasLevel}"/>

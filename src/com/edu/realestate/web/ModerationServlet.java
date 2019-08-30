@@ -56,19 +56,24 @@ public class ModerationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("*************************** AdvId : " + request.getParameter("advertisementId"));
 
 		try {
-			if (request.getParameter("refusedComment") == null)
-				service.validateAdvertisement(Integer.parseInt(request.getParameter("advertisementId")));
-			else
-				service.refuseAdvertisement(Integer.parseInt(request.getParameter("advertisementId")), request.getParameter("refusedComment"));
+			if (request.getParameter("advertisementId") != null) {
+				if (request.getParameter("refusedComment").equals(""))
+					service.validateAdvertisement(Integer.parseInt(request.getParameter("advertisementId")));
+				else
+					service.refuseAdvertisement(Integer.parseInt(request.getParameter("advertisementId")), request.getParameter("refusedComment"));
+			}
+			
 
 			List<Advertisement> pendingAds = null;
 			pendingAds = service.findAdvertisementsByStatus(AdStatus.Pending);
 			request.setAttribute("listAds", pendingAds);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.sendError(500, "Problème inattendu côté serveur");
 		}
 
@@ -80,8 +85,7 @@ public class ModerationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

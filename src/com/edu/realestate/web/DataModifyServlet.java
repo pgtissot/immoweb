@@ -1,9 +1,6 @@
 package com.edu.realestate.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,25 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.edu.realestate.model.Favorite;
 import com.edu.realestate.model.User;
-import com.edu.realestate.services.FavoriteService;
 import com.edu.realestate.services.UserService;
 
 /**
  * Servlet implementation class CompteServlet
  */
 
-@WebServlet("/compte")
-public class CompteServlet extends HttpServlet {
+@WebServlet("/dataModify")
+public class DataModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UserService us;
-	FavoriteService fs;
 	
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public CompteServlet() {
+    public DataModifyServlet() {
         super();
         // TODO Auto-generated constructor stub
         
@@ -49,7 +43,6 @@ public class CompteServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
 		us = ctx.getBean(UserService.class);
-		fs = ctx.getBean(FavoriteService.class);
 	}
 	
 	/**
@@ -57,7 +50,6 @@ public class CompteServlet extends HttpServlet {
 	 */
 	public void destroy() {
 		us = null;
-		fs = null;
 	}
 
 
@@ -66,13 +58,12 @@ public class CompteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = (String) request.getSession().getAttribute("username");
+		String password = request.getParameter("newPassword");
 		User user = us.read(username);
-		List<Favorite> favs = new ArrayList<>();
-		favs = fs.getFavByUser(username);
-		request.setAttribute("user", user);
-		request.setAttribute("moderator", user.getClass().getSimpleName().equals("Moderator") ? true : false);
-		request.setAttribute("listFavs", favs);		
-		getServletContext().getRequestDispatcher("/compte.jsp").forward(request, response);		
+		user.setPassword(password);
+		us.update(user);
+		
+		getServletContext().getRequestDispatcher("/logout").forward(request, response);		
 	}
 
 	/**

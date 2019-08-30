@@ -28,6 +28,7 @@
 	<!-- NAV -->
 	<div id="container">
 		<c:set value="${requestScope.user}" var="user" />
+		
 		<!-- CONTENT -->
 		<div id="welcome">
 			<section class="shadow">
@@ -36,8 +37,7 @@
 
 						<div class="col-lg-12 my-auto bigfont text-center">
 							Bonjour
-							<c:out value="${user.firstName}" />
-							, voici ta page personnelle!
+							<c:out value="${user.firstName}" />, voici votre page personnelle !
 						</div>
 					</div>
 				</div>
@@ -57,7 +57,9 @@
 					<div class="row" id="showData">
 						<div class="col-lg-12">
 							<div>
-								<header>Ton profil</header>
+								<div class="col-lg-12 text-center sectiontitle">
+									Votre profil
+								</div>
 								<section>
 									<div class="col-lg-12 form-group">
 
@@ -84,11 +86,15 @@
 											<div class="col-lg-2 text-right">
 												<button type="button" class="btn btn-info"
 													data-toggle="modal" data-target="#dataModal">
-													Modification mot de passe</button>
+													Modification du mot de passe</button>
 											</div>
 
 										</div>
-
+										<c:if test="${requestScope.moderator}">
+	  										<div class="col-lg-12 text-center">
+												<a class="btn btn-info" role="button" href="moderation">Modération d'annonces</a>
+											</div>
+										</c:if>
 									</div>
 								</section>
 							</div>
@@ -112,7 +118,7 @@
 					<div class="col-lg-8">
 						<h2>Favoris</h2>
 					</div>
-					<div class="col-lg-4">
+<!-- 					<div class="col-lg-4">
 						<div class="dropdown text-right">
 							<button class="btn btn-info dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
@@ -125,7 +131,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+ -->				</div>
 
 				<div class="row">
 					
@@ -139,7 +145,14 @@
 											<div class="col-lg-12 text-center">
 												<div class="row">
 													<div class="col-lg-12 text-center">
-														<img src="images/diapo1.jpg" class="img-fluid">
+													<c:choose>
+														<c:when test="${ad.pictures.size() == 0 }" >
+															<img src="images/image-not-found.jpg" class="img-fluid">
+														</c:when>
+														<c:when test="${ad.pictures.size() > 0 }" >
+															<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+														</c:when>
+													</c:choose>
 													</div>
 												</div>
 												<div class="row" data-type="caption">
@@ -174,10 +187,6 @@
 
 						</div>
 					</c:forEach>
-
-
-
-
 
 				</div>
 			</div>

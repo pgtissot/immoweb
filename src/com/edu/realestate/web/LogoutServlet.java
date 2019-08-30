@@ -3,16 +3,17 @@ package com.edu.realestate.web;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.edu.realestate.exceptions.AuthenticationException;
-import com.edu.realestate.model.User;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.edu.realestate.services.UserService;
-import com.edu.realestate.services.UserServiceImpl;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -22,6 +23,7 @@ public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private UserService us;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,8 +37,18 @@ public class LogoutServlet extends HttpServlet {
    	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		us = new UserServiceImpl();
+		ServletContext context = getServletContext();
+		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(context);
+		us = ctx.getBean(UserService.class);
 	}
+	
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		us = null;
+	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

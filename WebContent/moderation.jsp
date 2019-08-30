@@ -32,7 +32,8 @@
 	<section class="shadow">
 		<div class="container-fluid" id="searchheader">
 			<div class="row">
-				<div class="col-lg-12 my-auto bigfont">Annonces à traiter</div>
+				<div class="col-lg-9 my-auto bigfont">Annonces à traiter</div>
+				<div class="col-lg-3 my-auto bigfont"><a href="compte" class="btn btn-info" role="button">Revenir à la page de compte</a></div>
 			</div>
 		</div>
 	</section>
@@ -65,52 +66,44 @@
 			</section>
 
 			<c:forEach items="${requestScope.listAds}" var="ad">
-				<c:set var="isHouse"
-					value="${ad.realEstate.getType().equals('House')}" />
-				<c:set var="isApartment"
-					value="${ad.realEstate.getType().equals('Apartment')}" />
-
-				<section class="row border">
+				<c:set var="isHouse" value="${ad.realEstate.getType().equals('House')}" />
+				<c:set var="isApartment" value="${ad.realEstate.getType().equals('Apartment')}" />
+				
+				
+   				<section class="row border">
 					<div class="col-lg-12">
 						<div class="row">
 							<div class="col-lg-9 text-center my-auto">
 								<div class="row">
 									<div class="col-lg-3 text-center my-auto">
-										<div class="text-center">
-											<c:out value="${ad.transactionTypeToFrench()}" />
-											/
-											<c:out value="${ad.realEstate.toFrench()}" />
-											(
-											<c:out value="${ad.realEstate.area()}" />
-											m²)
+ 										<div class="text-center">
+											<c:out value="${ad.realEstate.toFrench()}" /> (<c:out value="${ad.realEstate.area}" /> m²)
 										</div>
 									</div>
 									<div class="col-lg-3 text-center my-auto">
-										<div class="text-center">
+ 										<div class="text-center">
 											<c:out value="${ad.realEstate.city.fullName}" />
 										</div>
 									</div>
 									<div class="col-lg-3 text-center my-auto" data-type="price">
-										<div class="text-center">
-											<c:out value="${ad.realEstate.priceFrench()}" />
-											&euro;
+ 										<div class="text-center">
+											<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 										</div>
 									</div>
-									<div class="col-lg-3 text-center my-auto">
+ 									<div class="col-lg-3 text-center my-auto">
 										<div class="text-center">
 											<c:out value="${ad.getFrenchReleaseDate()}" />
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-3 text-center my-auto" id="submit">
+ 							<div class="col-lg-3 text-center my-auto" id="submit">
 								<input class="btn btn-info adShow" data-toggle="collapse"
 									href="#adModeration-<c:out value="${ad.adNumber}" />"
 									type="submit" value="Montrer">
 							</div>
 						</div>
-						<div class="row collapse"
-							id="adModeration-<c:out value="${ad.adNumber}" />">
+						<div class="row collapse" id="adModeration-<c:out value="${ad.adNumber}" />">
 							<div class="col-lg-10 offset-lg-1">
 								<section>
 									<div class="row annoncedetail">
@@ -130,10 +123,11 @@
 										<div class="col-lg-5 text-center my-auto">
 											<div class="row">
 												<div class="col-lg-12 text-center">
+													<div data-type="detail-ref">
+														Référence : <c:out value="${ad.adNumber}" />
+													</div>
 													<div data-type="detail-realestate">
-														<c:out value="${ad.transactionTypeToFrench()}" />
-														/
-														<c:out value="${ad.realEstate.toFrench()}" />
+														<c:out value="${ad.transactionTypeToFrench()}" /> /	<c:out value="${ad.realEstate.toFrench()}" />
 													</div>
 													<div>
 														<c:if
@@ -143,50 +137,27 @@
 														</c:if>
 													</div>
 													<div>
-														<c:out value="${ad.realEstate.area}" />
-														m²
+														<c:out value="${ad.realEstate.area}" />	m²
 													</div>
 													<div>
 														<c:if test="${isApartment && ad.realEstate.floor ne null}">
-												Étage : <c:out value="${ad.realEstate.floor}" />
+															Étage : <c:out value="${ad.realEstate.floor}" />
 														</c:if>
 													</div>
 													<div>
 														<c:if test="${isHouse && ad.realEstate.landArea gt 0}">
-												Terrain : <c:out value="${ad.realEstate.landArea}" /> m²
-											</c:if>
+															Terrain : <c:out value="${ad.realEstate.landArea}" /> m²
+														</c:if>
 													</div>
 													<div data-type="detail-city">
 														<c:out value="${ad.realEstate.city.fullName}" />
 													</div>
 													<div data-type="detail-price">
-														<c:out value="${ad.realEstate.priceFrench()}" />
-														&euro;
+														<c:out value="${ad.realEstate.priceFrench()}" /> &euro;
 													</div>
 													<div>
-														Postée le
-														<c:out value="${ad.getFrenchReleaseDate()}" />
+														Postée le <c:out value="${ad.getFrenchReleaseDate()}" />
 													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-12 text-center updateFavoriteButton">
-													<c:choose>
-														<c:when test="${favorite eq null}">
-															<button type="button" class="btn btn-info"
-																data-toggle="modal" data-target="#addFavoriteModal"
-																id="favorite">
-																<i class="far fa-heart"></i> Ajouter aux Favoris
-															</button>
-														</c:when>
-														<c:when test="${favorite ne null}">
-															<button type="button" class="btn btn-danger"
-																data-toggle="modal" data-target="#removeFavoriteModal"
-																id="favorite">
-																<i class="far fa-heart"></i> Enlever des Favoris
-															</button>
-														</c:when>
-													</c:choose>
 												</div>
 											</div>
 										</div>
@@ -400,13 +371,13 @@
 											<div class="col-lg-12" data-option="detailOptionsEnergy">
 												<div class="row">
 													<c:choose>
-														<c:when test="${ad.realEstate.energyLevel eq '-'}">
+														<c:when test="${ad.realEstate.energyLevel eq null}">
 															<div class="col-lg-6 energy-na">
 																<i class="far fa-lightbulb"></i> Consommation
 																énergétique : N/R
 															</div>
 														</c:when>
-														<c:when test="${ad.realEstate.energyLevel ne '-'}">
+														<c:when test="${ad.realEstate.energyLevel ne null}">
 															<div
 																class="col-lg-6 energy-<c:out value="${ad.realEstate.energyLevel.toLowerCase()}"/>">
 																<i class="far fa-lightbulb"></i> Consommation
@@ -416,13 +387,13 @@
 														</c:when>
 													</c:choose>
 													<c:choose>
-														<c:when test="${ad.realEstate.gasLevel eq '-'}">
+														<c:when test="${ad.realEstate.gasLevel eq null}">
 															<div class="col-lg-6 gas-na">
 																<i class="fas fa-burn"></i> Émission de gaz à effet de
 																serre : N/R
 															</div>
 														</c:when>
-														<c:when test="${ad.realEstate.gasLevel ne '-'}">
+														<c:when test="${ad.realEstate.gasLevel ne null}">
 															<div
 																class="col-lg-6 gas-<c:out value="${ad.realEstate.gasLevel.toLowerCase()}"/>">
 																<i class="far fa-lightbulb"></i> Consommation
@@ -446,7 +417,7 @@
 												<input class="btn btn-info" type="submit" value="Refuser">
 												<div class="form-group text-center my-auto adRefus">
 													<label for="refus">Raison du refus :</label>
-													<textarea class="form-control" id="refus" rows="3"></textarea>
+													<textarea class="form-control" id="refusedComment" name="refusedComment" rows="3"></textarea>
 												</div>
 											</div>
 										</div>
@@ -457,7 +428,7 @@
 						</div>
 					</div>
 				</section>
-
+ 
 			</c:forEach>
 
 		</div>
