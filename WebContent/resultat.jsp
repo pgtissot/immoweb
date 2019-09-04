@@ -280,7 +280,7 @@
 					
 						<c:forEach items="${requestScope.listAds}" var="ad">
 
-							<div class="col-lg-6">
+							<div class="col-lg-4">
 								<article>
 									<form method="POST" action="detail" id="${ad.id}">
 										<a role="button" href="#" id="${ad.id}">
@@ -293,7 +293,7 @@
 																	<img src="images/image-not-found.jpg" class="img-fluid">
 																</c:when>
 																<c:when test="${ad.pictures.size() > 0 }" >
-																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																	<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid imgthumb">
 																</c:when>
 															</c:choose>
 														</div>

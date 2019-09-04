@@ -58,8 +58,6 @@ public class ModerationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("*************************** AdvId : " + request.getParameter("advertisementId"));
-
 		try {
 			if (request.getParameter("advertisementId") != null) {
 				if (request.getParameter("refusedComment").equals(""))
