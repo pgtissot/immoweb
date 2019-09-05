@@ -62,7 +62,7 @@
 											<img src="images/image-not-found.jpg" class="img-fluid">
 										</c:when>
 										<c:when test="${ad.pictures.size() > 0 }" >
-											<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid imgthumb">
+											<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
 										</c:when>
 									</c:choose>
 								</div>
@@ -431,7 +431,7 @@
 																			<img src="images/image-not-found.jpg" class="img-fluid">
 																		</c:when>
 																		<c:when test="${ad.pictures.size() > 0 }" >
-																			<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid">
+																			<img src="<c:out value="${ad.pictures[0].data}" />" class="img-fluid imgthumb">
 																		</c:when>
 																	</c:choose>
 																</div>
